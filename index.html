@@ -11,6 +11,15 @@
   <link rel="stylesheet" href="css/css1.css">
   <link rel="stylesheet" href="css/styles.css">
   <style>
+    /* Hide page scrollbar until user hovers the page (desktop UX) */
+    html, body { height: 100%; overflow: hidden; }
+    /* Allow scrolling when user hovers the page or when we explicitly enable it */
+    body:hover, body.scroll-enabled { overflow: auto; }
+    /* Hide native scrollbars when hidden; show a normal scrollbar on hover */
+    body::-webkit-scrollbar { width: 0; height: 0; }
+    body:hover::-webkit-scrollbar { width: 12px; height: 12px; }
+    /* Keep page-loading marker for media gating (no forced position) */
+    .page-loading { touch-action: none; }
     /* Slide-in-from-left animation for slide-in sections (slower) */
     .slide-in-left { transform: translateX(-120px); opacity: 0; transition: transform 1s cubic-bezier(.2,.9,.2,1), opacity .6s ease; will-change: transform, opacity; }
     .slide-in-left.in-view { transform: translateX(0); opacity: 1; }
@@ -20,15 +29,17 @@
       /* Event description paragraph justified */
       .event-description { text-align: justify; text-justify: inter-word; }
       .event-description::after { content: ''; display: inline-block; width: 100%; }
+      /* Allow opting out of justification for specific paragraphs */
+      .event-description.no-justify { text-align: left; text-justify: auto; }
   </style>
 </head>
 
-<body class="bg-white">
+<body class="bg-white page-loading">
   <main class="scrollable min-h-screen">
     <!-- ── HERO ── -->
     <section class="relative w-full hero" style="aspect-ratio: 1200 / 593;">
       <!-- Background network image (fixed) -->
-      <video src="assets/videos/background.m4v" autoplay muted loop playsinline class="fixed-bg"></video>
+      <video id="hero-bg-video" src="assets/videos/background.m4v" autoplay muted loop playsinline preload="auto" class="fixed-bg"></video>
 
       <!-- ── C ── -->
       <svg class="absolute fill-black scattered letter-c" style="left: 6.17%; top: 11.13%; width: 14%; height: auto;"
@@ -133,17 +144,19 @@
 
     <!-- ── WORK SECTION ── -->
     <section id="work-section" class="px-[5%] pt-[7.8%] pb-[20%] slide-in-left">
-      <p
-        class="event-title font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] mb-[clamp(16px,3.8vw,46px)]">
-        EVENT TICKET SYSTEM
-      </p>
-        <p class="text-black font-normal leading-[110%] text-[clamp(20px,2.67vw,32px)] max-w-[530px] mb-[clamp(16px,3.3vw,40px)] event-description">
-          A user-friendly event booking platform that enables users to browse events, purchase tickets, and verify bookings through email OTP authentication. The system includes digital ticket generation and QR code validation to ensure a secure and seamless event experience.
-        </p>
-      <a href="pages/case-study.html"
-        class="font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] hover:opacity-60 transition-opacity">
-        READ CASE STUDY &gt;
-      </a>
+      <div class="md:flex md:items-stretch md:gap-8">
+        <div class="md:flex-2">
+          <p class="event-title font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] mb-[clamp(16px,3.8vw,46px)]">EVENT TICKET SYSTEM</p>
+          <p class="text-black font-normal leading-[110%] text-[clamp(20px,2.67vw,32px)] max-w-[530px] mb-[clamp(16px,3.3vw,40px)] event-description no-justify">
+            A user-friendly event booking platform that enables users to browse events, purchase tickets, and verify bookings through email OTP authentication. The system includes digital ticket generation and QR code validation to ensure a secure and seamless event experience.
+          </p>
+          <a href="pages/case-study.html" class="font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] hover:opacity-60 transition-opacity">READ CASE STUDY &gt;</a>
+        </div>
+
+        <div class="mt-6 md:mt-0">
+          <img src="assets/images/banner.png" alt="Event banner" loading="lazy" class="w-full h-full object-cover rounded-sm shadow-sm">
+        </div>
+      </div>
     </section>
 
     <!-- ── ABOUT + LINKS ── -->
@@ -167,15 +180,15 @@
       <div class="flex flex-col">
         <a href="tel:+66924793925"
           class="font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.75] hover:opacity-60 transition-opacity">
-          CONTACT
+          CONTACT ME
         </a>
         <a href="https://www.linkedin.com/in/chan-mya-mya-khin"
           class="font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.75] hover:opacity-60 transition-opacity">
-          LINKEDIN
+          VIEW LINKEDIN
         </a>
         <a href="https://www.behance.net/chanmyamyakhin"
           class="font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.75] hover:opacity-60 transition-opacity">
-          BEHANCE
+          VIEW BEHANCE
         </a>
       </div>
     </section>
@@ -205,6 +218,68 @@
       } else {
         setTimeout(function () { sections.forEach(function (s) { s.classList.add('in-view'); }); }, 300);
       }
+    })();
+  </script>
+  <script>
+    // Lock scrolling while hero background media loads, then reveal page
+    (function () {
+      var body = document.body;
+      var video = document.getElementById('hero-bg-video');
+      var LOADING_TIMEOUT = 3500; // ms fallback
+      var scrollY = window.scrollY || 0;
+
+      function enablePage() {
+        if (!body) return;
+        body.classList.remove('page-loading');
+        // allow scrolling by adding explicit class (in addition to hover)
+        body.classList.add('scroll-enabled');
+        permanentEnabled = true;
+        document.removeEventListener('touchmove', preventTouch, { passive: false });
+      }
+
+      function preventTouch(e) { e.preventDefault(); }
+
+      // We rely on CSS `overflow:hidden` by default and allow scroll on hover
+
+      // If video is already ready, enable immediately
+      var timeout = null;
+      if (video) {
+        if (video.readyState >= 3) { enablePage(); }
+        else {
+          timeout = setTimeout(function () { enablePage(); }, LOADING_TIMEOUT);
+          var onCan = function () { if (timeout) clearTimeout(timeout); enablePage(); video.removeEventListener('canplaythrough', onCan); };
+          video.addEventListener('canplaythrough', onCan, { once: true });
+        }
+      } else {
+        // No video found — remove lock after timeout
+        timeout = setTimeout(enablePage, LOADING_TIMEOUT);
+      }
+
+      // Allow temporary unlock by hovering or focusing the CHAN letters or row-letters
+      var permanentEnabled = false;
+      var hoverTargets = Array.prototype.slice.call(document.querySelectorAll('.letter-c, .letter-h, .letter-a, .letter-n, .row-letters, .row-letters .letter-block, .scattered'));
+      function addTempEnable() {
+        if (timeout) { clearTimeout(timeout); timeout = null; }
+        if (permanentEnabled) return;
+        body.classList.add('scroll-enabled');
+      }
+      function removeTempEnable() {
+        if (permanentEnabled) return;
+        body.classList.remove('scroll-enabled');
+      }
+      hoverTargets.forEach(function (t) {
+        t.addEventListener('mouseenter', addTempEnable);
+        t.addEventListener('focus', addTempEnable);
+        t.addEventListener('mouseleave', removeTempEnable);
+        t.addEventListener('blur', removeTempEnable);
+      });
+
+      // Also support entering/leaving the whole document to show scroll while hovered
+      document.addEventListener('mouseenter', addTempEnable);
+      document.addEventListener('mouseleave', removeTempEnable);
+
+      // Prevent touch scroll while loading on mobile
+      document.addEventListener('touchmove', preventTouch, { passive: false });
     })();
   </script>
 </body>
