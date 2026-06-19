@@ -11,7 +11,8 @@
 	<link rel="stylesheet" href="../css/case-study.css">
 </head>
 
-<body>
+<body class="page-loading">
+	<div class="loading-overlay" id="loading-overlay" aria-hidden="true">Loading…</div>
 	<!-- Hero Section -->
 	<section class="hero">
 		<img src="../assets/images/banner.png" alt="Event Ticket System">
@@ -318,8 +319,43 @@
 	</div>
 
 	<script>
-		// Client-side image protection deterrents (adds classes + blocks drag/contextmenu on images)
+		// Client-side image protection deterrents and media-ready gating
 		document.addEventListener('DOMContentLoaded', function () {
+			// If there are background videos, wait for them to be ready before revealing the page.
+			(function waitForVideosThenReveal() {
+				var body = document.body;
+				var overlay = document.getElementById('loading-overlay');
+				var videos = Array.prototype.slice.call(document.querySelectorAll('video'));
+				if (!videos.length) {
+					// No videos — reveal immediately
+					body.classList.remove('page-loading');
+					if (overlay) overlay.parentNode.removeChild(overlay);
+					return;
+				}
+				var remaining = videos.length;
+				var done = function () {
+					if (body.classList.contains('page-loading')) body.classList.remove('page-loading');
+					if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+				};
+				var timeout = setTimeout(function () { done(); }, 7000);
+				videos.forEach(function (v) {
+					if (v.readyState >= 3) {
+						remaining -= 1;
+						if (remaining <= 0) { clearTimeout(timeout); done(); }
+						return;
+					}
+					var onReady = function () {
+						v.removeEventListener('canplaythrough', onReady);
+						v.removeEventListener('loadeddata', onReady);
+						remaining -= 1;
+						if (remaining <= 0) { clearTimeout(timeout); done(); }
+					};
+					v.addEventListener('canplaythrough', onReady);
+					v.addEventListener('loadeddata', onReady);
+					v.addEventListener('error', function () { remaining -= 1; if (remaining <= 0) { clearTimeout(timeout); done(); } });
+				});
+			})();
+
 			// Image protection
 			document.querySelectorAll('img').forEach(img => {
 				img.classList.add('protect-img');

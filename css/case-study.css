@@ -12,6 +12,25 @@ body {
     color: #030812;
 }
 
+/* Hide main content while background media is loading */
+.page-loading .container,
+.page-loading .hero,
+.page-loading .footer-spacing {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.page-loading .loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: #071739;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    z-index: 9998;
+}
+
 /* Ensure no unexpected gaps at the very top of the page */
 html {
     margin: 0;
