@@ -28,9 +28,11 @@
     .slide-in-left.in-view .about-text { transform: translateX(0); opacity: 1; }
       /* Event description paragraph justified */
       .event-description { text-align: justify; text-justify: inter-word; }
-      .event-description::after { content: ''; display: inline-block; width: 100%; }
-      /* Allow opting out of justification for specific paragraphs */
-      .event-description.no-justify { text-align: left; text-justify: auto; }
+        .event-description::after { content: ''; display: inline-block; width: 100%; }
+        /* Allow opting out of justification for specific paragraphs */
+        .event-description.no-justify { text-align: left; text-justify: auto; }
+        /* Protect images from dragging/right-click (client-side deterrent) */
+        .protect-img { -webkit-user-drag: none; user-select: none; -webkit-user-select: none; }
   </style>
 </head>
 
@@ -154,7 +156,7 @@
         </div>
 
         <div class="mt-6 md:mt-0">
-          <img src="assets/images/banner.png" alt="Event banner" loading="lazy" class="w-full h-full object-cover rounded-sm shadow-sm">
+          <img src="assets/images/banner.png" alt="Event banner" loading="lazy" draggable="false" class="w-full h-full object-cover rounded-sm shadow-sm protect-img">
         </div>
       </div>
     </section>
@@ -280,6 +282,24 @@
 
       // Prevent touch scroll while loading on mobile
       document.addEventListener('touchmove', preventTouch, { passive: false });
+    })();
+  </script>
+  <script>
+    // Disable right-click and dragging on images with the `protect-img` class
+    (function () {
+      function protectImages() {
+        var imgs = Array.prototype.slice.call(document.querySelectorAll('.protect-img'));
+        if (!imgs.length) return;
+        imgs.forEach(function (img) {
+          try { img.setAttribute('draggable', 'false'); } catch (e) {}
+          img.addEventListener('dragstart', function (e) { e.preventDefault(); });
+        });
+        document.addEventListener('contextmenu', function (e) {
+          if (e.target && e.target.closest && e.target.closest('.protect-img')) e.preventDefault();
+        });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', protectImages);
+      else protectImages();
     })();
   </script>
 </body>
