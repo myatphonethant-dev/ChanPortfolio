@@ -1,0 +1,294 @@
+/* Hero Section */
+.hero {
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Use DM Sans as the primary font for this page */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'DM Sans', -apple-system, Roboto, Helvetica, sans-serif;
+    color: #030812;
+}
+
+/* Ensure no unexpected gaps at the very top of the page */
+html {
+    margin: 0;
+    padding: 0;
+}
+
+/* Force hero to truly fill the viewport width and remove top spacing */
+.hero {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+}
+
+.hero img {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    display: block;
+    min-height: 320px;
+}
+
+/* Ensure image doesn't introduce top margin and uses the viewport width */
+.hero img {
+    display: block;
+    width: 100vw;
+    max-width: none;
+    margin: 0;
+}
+
+@media (min-width: 640px) {
+    .hero img {
+        min-height: 400px;
+    }
+}
+
+@media (min-width: 768px) {
+    .hero img {
+        min-height: 480px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero img {
+        min-height: 536px;
+    }
+}
+
+/* Container */
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding: 0 40px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding: 0 60px;
+    }
+}
+
+/* Sections */
+section {
+    padding: 40px 0;
+}
+
+@media (min-width: 640px) {
+    section {
+        padding: 56px 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    section {
+        padding: 64px 0;
+    }
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 640px) {
+    h2 { font-size: 30px; }
+}
+
+@media (min-width: 1024px) {
+    h2 { font-size: 32px; }
+}
+
+/* Project Overview */
+.project-overview { display: flex; flex-direction: column; gap: 20px; }
+.project-overview p { font-size: 16px; line-height: 30px; text-align: justify; max-width: 1160px; }
+@media (min-width: 640px) { .project-overview p { font-size: 18px; } }
+@media (min-width: 1024px) { .project-overview p { font-size: 20px; } }
+
+/* Color Palette Section */
+.color-section { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: start; }
+@media (min-width: 1024px) { .color-section { grid-template-columns: 1fr 420px; gap: 53px; } }
+.color-description { flex: 1; }
+.color-description p { font-size: 16px; line-height: 30px; text-align: justify; letter-spacing: 0.6px; white-space: pre-line; }
+@media (min-width: 640px) { .color-description p { font-size: 18px; } }
+@media (min-width: 1024px) { .color-description p { font-size: 20px; } }
+
+.color-swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; justify-items: end; }
+@media (min-width: 1024px) { .color-swatches { gap: 32px; } }
+
+.color-swatch { display: flex; align-items: center; gap: 16px; background: #ffffff; padding: 18px; border-radius: 12px; max-width: 420px; box-shadow: 0 10px 30px rgba(7,23,57,0.06); }
+.swatch-circle-container { position: relative; width: 120px; height: 120px; }
+.swatch-circle { width: 100%; height: 100%; border-radius: 50%; flex-shrink: 0; z-index: 1; box-shadow: none; border: 1px solid rgba(7,23,57,0.04); }
+.hex-pill { position: absolute; right: -12px; top: 50%; transform: translateY(-50%); background: #fff; padding: 6px 10px; border-radius: 16px; font-size: 13px; font-weight: 700; color: #071739; box-shadow: none; border: none; z-index: 2; }
+.swatch-info { display: none; }
+@media (min-width: 640px) { .swatch-circle { width: 120px; height: 120px; } }
+.swatch-label { display: none; }
+@media (min-width: 640px) { .swatch-label { height: 36px; padding: 0 16px; } }
+
+/* Typography Section */
+.typography-content { display: flex; flex-direction: column; gap: 32px; }
+@media (min-width: 1024px) {
+    /* Match the color palette layout so the left paragraph aligns with the color-description column */
+    .typography-content {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 53px;
+        align-items: start;
+    }
+    /* Nudge the Figtree display up slightly so its top lines up with the paragraph */
+    .figtree-display {
+        margin-top: -14px;
+    }
+}
+.typography-left { flex: 1; }
+.typography-text {
+    font-size: 16px;
+    line-height: 30px;
+    text-align: justify;
+    letter-spacing: 0.6px;
+    white-space: pre-line;
+}
+@media (min-width: 640px) { .typography-text { font-size: 18px; } }
+@media (min-width: 1024px) { .typography-text { font-size: 20px; max-width: none; } }
+.figtree-display { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; transform: none; margin-top: 0; }
+.figtree-word { font-family: 'Figtree', sans-serif; font-size: 60px; font-weight: 900; line-height: 1; }
+@media (min-width: 640px) { .figtree-word { font-size: 80px; } }
+@media (min-width: 1024px) { .figtree-word { font-size: 100px; } }
+.weight-samples { display: flex; flex-wrap: wrap; gap: 20px; }
+@media (min-width: 1024px) { .weight-samples { gap: 35px; } }
+.weight-sample { display: flex; align-items: center; gap: 12px; }
+.weight-letter { font-family: 'Figtree', sans-serif; font-size: 36px; line-height: 1; }
+@media (min-width: 640px) { .weight-letter { font-size: 50px; } }
+.weight-label { font-family: 'Figtree', sans-serif; font-size: 20px; }
+@media (min-width: 640px) { .weight-label { font-size: 32px; } }
+.bold { font-weight: 700; }
+.semibold { font-weight: 600; }
+.medium { font-weight: 500; }
+.regular { font-weight: 400; }
+
+/* Grid System Section */
+.grid-info { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; align-items: flex-start; }
+.grid-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.grid-item.start { align-items: flex-start; }
+.grid-item.end { align-items: flex-end; }
+.grid-item svg { stroke: #071739; stroke-width: 1; }
+.grid-image { width: 100%; height: auto; border-radius: 8px; }
+
+/* Final Design Grid */
+.final-design-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+@media (min-width: 640px) { .final-design-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1024px) { .final-design-grid { grid-template-columns: repeat(4, 1fr); gap: 32px; } }
+.design-card { display: flex; flex-direction: column; gap: 10px; }
+.design-card h3 { font-size: 16px; font-weight: 600; }
+@media (min-width: 640px) { .design-card h3 { font-size: 20px; } }
+.design-card img { border-radius: 8px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); }
+
+/* --- User Persona (layout, image sizing, spacing) --- */
+.persona-header { display: flex; flex-direction: column; gap: 24px; }
+@media (min-width: 640px) {
+    .persona-header { flex-direction: row; gap: 32px; align-items: flex-start; }
+}
+
+.persona-image {
+    width: 220px;
+    height: 250px; /* increased height only */
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+    display: block;
+}
+
+@media (min-width: 640px) { .persona-image { width: 280px; height: 360px; } }
+@media (min-width: 1024px) { .persona-image { width: 320px; height: 390px; } }
+
+.persona-info { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.persona-details { display: flex; flex-direction: column; gap: 8px; }
+.persona-details h3 { font-size: 20px; font-weight: 600; margin: 0; }
+@media (min-width: 640px) { .persona-details h3 { font-size: 24px; } }
+@media (min-width: 1024px) { .persona-details h3 { font-size: 28px; } }
+.persona-details p {
+    margin: 6px 0;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #222;
+}
+@media (min-width: 640px) {
+    .persona-details p { font-size: 18px; }
+}
+@media (min-width: 1024px) {
+    .persona-details p { font-size: 20px; }
+}
+
+    .persona-bio { margin-top: 6px; font-size: 16px; line-height: 1.4; text-align: justify; white-space: pre-line; }
+@media (min-width: 640px) { .persona-bio { font-size: 18px; line-height: 1.4; } }
+@media (min-width: 1024px) { .persona-bio { font-size: 20px; line-height: 1.4; } }
+
+.persona-sections { display: block; margin-top: 24px; }
+@media (min-width: 1024px) {
+    /* two-column layout matching reference */
+    .persona-sections {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+    }
+}
+.persona-section { margin-bottom: 24px; }
+.persona-section h3 { margin-top: 0; font-size: 20px; font-weight: 600; }
+@media (min-width: 640px) { .persona-section h3 { font-size: 22px; } }
+@media (min-width: 1024px) { .persona-section h3 { font-size: 24px; } }
+
+/* Body text in these sections should match persona/body sizing and be justified */
+.persona-section p,
+.persona-section li {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #222;
+}
+@media (min-width: 640px) { .persona-section p, .persona-section li { font-size: 18px; } }
+@media (min-width: 1024px) { .persona-section p, .persona-section li { font-size: 20px; } }
+
+.persona-section p { text-align: justify; }
+.persona-section ul { padding-left: 20px; }
+
+/* Key Learning list sizing — match other body text across breakpoints */
+.key-learning-list { padding-left: 20px; }
+.key-learning-list li {
+    font-size: 16px;
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+@media (min-width: 640px) { .key-learning-list li { font-size: 18px; } }
+@media (min-width: 1024px) { .key-learning-list li { font-size: 20px; } }
+
+/* Image protection deterrents (client-side only) */
+.protect-img {
+    /* Client-side deterrent only (not foolproof). Keep vendor prefixes for wider support. */
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none; /* iOS Safari */
+}
+
+.img-protect-wrapper { position: relative; display: inline-block; }
+.img-protect-wrapper .img-overlay {
+    position: absolute; inset: 0; background: transparent; pointer-events: none;
+}
+@media (min-width: 1024px) { .key-learning-list li { font-size: 20px; } }

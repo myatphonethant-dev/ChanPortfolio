@@ -1,0 +1,161 @@
+* {
+  font-family: 'DM Sans', -apple-system, Roboto, Helvetica, sans-serif;
+}
+
+/* Hover-to-row styles */
+.hero {
+  position: relative;
+}
+
+.scattered {
+  transition: opacity 400ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 10;
+  will-change: opacity, transform;
+  pointer-events: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.row-letters {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%) translateZ(0);
+  display: flex;
+  gap: 6.8vw;
+  align-items: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+  z-index: 20;
+  backface-visibility: hidden;
+}
+
+.row-letters .letter-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(6px, 1.5vw, 28px);
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease;
+  opacity: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* C and A (1st, 3rd) start from ABOVE their scattered positions — fall DOWN */
+.row-letters .letter-block:nth-child(odd) {
+  transform: translateY(-20vw);
+}
+
+/* H and N (2nd, 4th) start from BELOW their column centroids — rise UP */
+.row-letters .letter-block:nth-child(even) {
+  transform: translateY(12vw);
+}
+
+.row-letters svg {
+  height: auto;
+  fill: black;
+  display: block;
+}
+
+/* Match each letter's original scattered width exactly */
+.row-letters .letter-block:nth-child(1) svg {
+  width: 14vw;
+}
+
+/* C */
+.row-letters .letter-block:nth-child(2) svg {
+  width: 17.1vw;
+}
+
+/* H */
+.row-letters .letter-block:nth-child(3) svg {
+  width: 19.5vw;
+}
+
+/* A */
+.row-letters .letter-block:nth-child(4) svg {
+  width: 16.7vw;
+}
+
+/* N */
+
+/* Match original labels' size/style exactly */
+.row-letters .label {
+  font-weight: 900;
+  font-size: clamp(8px, 2vw, 24px);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Increase vertical separation between letter SVG and label in hover row */
+.row-letters .label {
+  margin-top: clamp(6px, 1.2vw, 18px);
+}
+
+/* C, A, N labels are centered in the original */
+.row-letters .letter-block:nth-child(1) .label,
+.row-letters .letter-block:nth-child(3) .label,
+.row-letters .letter-block:nth-child(4) .label {
+  text-align: center;
+}
+
+/* BACK-END DEVELOPER is left-aligned in the original (no text-center class) */
+
+/* Fixed background image (covers viewport even when scrolling) */
+.fixed-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Ensure pages can scroll normally. Keep `.scrollable` as a scroll container. */
+html, body {
+  height: 100%;
+}
+
+.scrollable {
+  min-height: 100vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.row-letters .letter-block:nth-child(2) {
+  align-items: flex-start;
+}
+
+.row-letters .letter-block:nth-child(2) .label {
+  text-align: left;
+}
+
+.hero:hover .row-letters {
+  opacity: 1;
+}
+
+.hero:hover .row-letters .letter-block {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.hero:hover .scattered {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* ABOUT ME improvements */
+.about-text {
+  max-width: 44ch;
+  text-align: left;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  word-break: normal;
+  orphans: 2;
+  widows: 2;
+  line-height: 1.6;
+}
