@@ -311,14 +311,59 @@
 	<!-- Footer spacing -->
 	<div class="footer-spacing"></div>
 
+	<!-- Floating action buttons -->
+	<div class="fab-container" aria-hidden="false">
+		<button id="back-to-top" class="fab" title="Back to top" aria-label="Back to top">↑</button>
+		<button id="back-to-portfolio" class="fab fab--secondary show" title="Back to portfolio" aria-label="Back to portfolio">🏠</button>
+	</div>
+
 	<script>
 		// Client-side image protection deterrents (adds classes + blocks drag/contextmenu on images)
 		document.addEventListener('DOMContentLoaded', function () {
+			// Image protection
 			document.querySelectorAll('img').forEach(img => {
 				img.classList.add('protect-img');
 				try { img.setAttribute('draggable', 'false'); } catch (e) {}
 				img.addEventListener('contextmenu', function (ev) { ev.preventDefault(); });
 				img.addEventListener('dragstart', function (ev) { ev.preventDefault(); });
+			});
+
+			// Floating buttons
+			var backToTop = document.getElementById('back-to-top');
+			var backToPortfolio = document.getElementById('back-to-portfolio');
+
+			function toggleBackToTop() {
+				if (window.scrollY > 300) {
+					backToTop.classList.add('show');
+				} else {
+					backToTop.classList.remove('show');
+				}
+			}
+
+			window.addEventListener('scroll', toggleBackToTop);
+			// initial state
+			toggleBackToTop();
+
+			backToTop.addEventListener('click', function () {
+				window.scrollTo({ top: 0, behavior: 'smooth' });
+			});
+
+			backToPortfolio.addEventListener('click', function () {
+				// Navigate back to the main portfolio index
+				window.location.href = '../index.html';
+			});
+
+			// Keyboard shortcuts: 't' = Back to Top, 'h' = Back to Portfolio
+			document.addEventListener('keydown', function (e) {
+				if (!e.key) return;
+				var active = document.activeElement;
+				if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.tagName === 'SELECT' || active.isContentEditable)) return;
+				var key = e.key.toLowerCase();
+				if (key === 't') {
+					window.scrollTo({ top: 0, behavior: 'smooth' });
+				} else if (key === 'h') {
+					window.location.href = '../index.html';
+				}
 			});
 		});
 	</script>
