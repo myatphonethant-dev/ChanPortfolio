@@ -14,7 +14,7 @@
 <body class="page-loading">
 	<div class="loading-overlay" id="loading-overlay" aria-hidden="true">Loading…</div>
 	<!-- Hero Section -->
-	<section class="hero">
+	<section class="hero slide-rtl">
 		<img src="../assets/images/banner.png" alt="Event Ticket System">
 	</section>
 
@@ -330,12 +330,16 @@
 					// No videos — reveal immediately
 					body.classList.remove('page-loading');
 					if (overlay) overlay.parentNode.removeChild(overlay);
+					var heroImmediate = document.querySelector('.hero.slide-rtl');
+					if (heroImmediate) requestAnimationFrame(function () { heroImmediate.classList.add('in-view'); });
 					return;
 				}
 				var remaining = videos.length;
 				var done = function () {
 					if (body.classList.contains('page-loading')) body.classList.remove('page-loading');
 					if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+					var heroEl = document.querySelector('.hero.slide-rtl');
+					if (heroEl) requestAnimationFrame(function () { heroEl.classList.add('in-view'); });
 				};
 				var timeout = setTimeout(function () { done(); }, 7000);
 				videos.forEach(function (v) {
@@ -363,6 +367,26 @@
 				img.addEventListener('contextmenu', function (ev) { ev.preventDefault(); });
 				img.addEventListener('dragstart', function (ev) { ev.preventDefault(); });
 			});
+
+			// Add slide-up class to main sections and observe them
+			(function () {
+				var sections = Array.prototype.slice.call(document.querySelectorAll('.container > section'));
+				if (!sections.length) return;
+				sections.forEach(function (s) { s.classList.add('slide-up'); });
+				if ('IntersectionObserver' in window) {
+					var obs = new IntersectionObserver(function (entries, observer) {
+						entries.forEach(function (entry) {
+							if (entry.isIntersecting) {
+								entry.target.classList.add('in-view');
+								observer.unobserve(entry.target);
+							}
+						});
+					}, { threshold: 0.12 });
+					sections.forEach(function (s) { obs.observe(s); });
+				} else {
+					setTimeout(function () { sections.forEach(function (s) { s.classList.add('in-view'); }); }, 700);
+				}
+			})();
 
 			// Floating buttons
 			var backToTop = document.getElementById('back-to-top');

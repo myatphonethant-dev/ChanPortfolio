@@ -347,3 +347,11 @@ h2 {
     position: absolute; inset: 0; background: transparent; pointer-events: none;
 }
 @media (min-width: 1024px) { .key-learning-list li { font-size: 20px; } }
+
+/* Slide-up (bottom-to-top) reveal for sections */
+.slide-up { transform: translateY(28px); opacity: 0; transition: transform .9s cubic-bezier(.2,.9,.2,1), opacity .6s ease; will-change: transform, opacity; }
+.slide-up.in-view { transform: translateY(0); opacity: 1; }
+
+/* Slide right-to-left for hero/banner */
+.slide-rtl { transform: translateX(120px); opacity: 0; transition: transform .9s cubic-bezier(.2,.9,.2,1), opacity .6s ease; will-change: transform, opacity; }
+.slide-rtl.in-view { transform: translateX(0); opacity: 1; }
