@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAN - UI/UX Designer & Back-end Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(1.5rem, 4vw, 8rem);
+            padding: 2rem;
+        }
+
+        .letter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform .8s cubic-bezier(.76, 0, .24, 1);
+        }
+
+        .letter h1 {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
+            font-size: clamp(28rem, 22vw, 42rem);
+            font-weight: 900;
+            line-height: 0.85;
+            letter-spacing: 0.01em;
+            margin: 0;
+        }
+
+        .letter p {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
+            font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+            font-weight: 700;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .c {
+            transform: translateY(-60px);
+        }
+
+        .h {
+            transform: translateY(60px);
+        }
+
+        .a {
+            transform: translateY(-40px);
+        }
+
+        .n {
+            transform: translateY(60px);
+        }
+
+        .hero:hover .c,
+        .hero:hover .h,
+        .hero:hover .a,
+        .hero:hover .n {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                gap: 1rem;
+                padding: 1rem;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .letter h1 {
+                font-size: clamp(2.5rem, 12vw, 5rem);
+            }
+
+            .letter p {
+                font-size: 0.65rem;
+                margin-top: 4px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero">
+        <div class="letter c">
+            <h1>C</h1>
+            <p>UI/UX DESIGN</p>
+        </div>
+
+        <div class="letter h">
+            <h1>H</h1>
+            <p>BACK-END DEVELOPER</p>
+        </div>
+
+        <div class="letter a">
+            <h1>A</h1>
+            <p>BASED IN BANGKOK</p>
+        </div>
+
+        <div class="letter n">
+            <h1>N</h1>
+            <p>FROM MYANMAR</p>
+        </div>
+    </div>
+</body>
+
+</html>

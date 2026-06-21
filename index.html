@@ -10,30 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/css1.css">
   <link rel="stylesheet" href="css/styles.css">
-  <style>
-    /* Hide page scrollbar until user hovers the page (desktop UX) */
-    html, body { height: 100%; overflow: hidden; }
-    /* Allow scrolling when user hovers the page or when we explicitly enable it */
-    body:hover, body.scroll-enabled { overflow: auto; }
-    /* Hide native scrollbars when hidden; show a normal scrollbar on hover */
-    body::-webkit-scrollbar { width: 0; height: 0; }
-    body:hover::-webkit-scrollbar { width: 12px; height: 12px; }
-    /* Keep page-loading marker for media gating (no forced position) */
-    .page-loading { touch-action: none; }
-    /* Slide-in-from-left animation for slide-in sections (slower) */
-    .slide-in-left { transform: translateX(-120px); opacity: 0; transition: transform 1s cubic-bezier(.2,.9,.2,1), opacity .6s ease; will-change: transform, opacity; }
-    .slide-in-left.in-view { transform: translateX(0); opacity: 1; }
-    /* Stagger child content for nicer entrance */
-    .slide-in-left .about-text { transform: translateX(-20px); opacity: 0; transition: transform 1s cubic-bezier(.2,.9,.2,1) .12s, opacity .6s ease .12s; }
-    .slide-in-left.in-view .about-text { transform: translateX(0); opacity: 1; }
-      /* Event description paragraph justified */
-      .event-description { text-align: justify; text-justify: inter-word; }
-        .event-description::after { content: ''; display: inline-block; width: 100%; }
-        /* Allow opting out of justification for specific paragraphs */
-        .event-description.no-justify { text-align: left; text-justify: auto; }
-        /* Protect images from dragging/right-click (client-side deterrent) */
-        .protect-img { -webkit-user-drag: none; user-select: none; -webkit-user-select: none; }
-  </style>
 </head>
 
 <body class="bg-white page-loading">
@@ -80,7 +56,7 @@
       <!-- Based In Bangkok -->
       <div class="absolute font-black text-black text-center leading-none scattered"
         style="left: 49.9%; top: 51.3%; width: 19%; font-size: clamp(8px, 2vw, 24px);">
-        Based In Bangkok
+        BASED IN BANGKOK
       </div>
 
       <!-- ── N ── -->
@@ -116,23 +92,23 @@
         <div class="letter-block">
           <svg viewBox="0 0 234 260" role="img" aria-labelledby="a-title" fill="none"
             xmlns="http://www.w3.org/2000/svg">
-            <title id="a-title">A — Based In Bangkok</title>
+            <title id="a-title">A — BASED IN BANGKOK</title>
             <path
               d="M81.2 0H151.9L233.1 214.9H164.5L153.3 183.75H77.7L66.5 214.9H0L81.2 0ZM115.5 79.45L97.65 128.8H133.35L115.5 79.45Z"
               fill="black" />
             <text x="50%" y="244" text-anchor="middle"
-              font-family="DM Sans, -apple-system, Roboto, Helvetica, sans-serif" font-weight="900" font-size="16">Based
-              In Bangkok</text>
+              font-family="DM Sans, -apple-system, Roboto, Helvetica, sans-serif" font-weight="900" font-size="16">BASED
+              IN BANGKOK</text>
           </svg>
         </div>
         <div class="letter-block">
           <svg viewBox="0 0 200 260" role="img" aria-labelledby="n-title" fill="none"
             xmlns="http://www.w3.org/2000/svg">
-            <title id="n-title">N — From Myanmar</title>
+            <title id="n-title">N — FROM MYANMAR</title>
             <path d="M199.5 0V214.9H143.85L65.45 107.45V214.9H0V0H63.35L134.05 100.1V0H199.5Z" fill="black" />
             <text x="50%" y="244" text-anchor="middle"
-              font-family="DM Sans, -apple-system, Roboto, Helvetica, sans-serif" font-weight="900" font-size="16">From
-              Myanmar</text>
+              font-family="DM Sans, -apple-system, Roboto, Helvetica, sans-serif" font-weight="900" font-size="16">FROM
+              MYANMAR</text>
           </svg>
         </div>
       </div>
@@ -140,30 +116,32 @@
       <!-- From Myanmar -->
       <div class="absolute font-black text-black text-center leading-none scattered"
         style="left: 73.2%; top: 73.4%; width: 19%; font-size: clamp(8px, 2vw, 24px);">
-        From Myanmar
+        FROM MYANMAR
       </div>
     </section>
 
     <!-- ── WORK SECTION ── -->
     <section id="work-section" class="px-[5%] pt-[7.8%] pb-[20%] slide-in-left">
       <div class="md:flex md:items-stretch md:gap-8">
-        <div class="md:flex-2">
+        <div class="md:flex-1">
           <p class="event-title font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] mb-[clamp(16px,3.8vw,46px)]">EVENT TICKET SYSTEM</p>
-          <p class="text-black font-normal leading-[150%] text-[clamp(18px,2.2vw,28px)] about-text">
+          <p class="text-black font-normal leading-[150%] text-[clamp(18px,2.2vw,28px)] about-text event-description">
             A user-friendly event booking platform that enables users to browse events, purchase tickets, and verify bookings through email OTP authentication. The system includes digital ticket generation and QR code validation to ensure a secure and seamless event experience.
-          </p><br>
-          <a href="pages/case-study.html" class="font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] hover:opacity-60 transition-opacity">READ CASE STUDY &gt;</a>
+          </p>
+          <a href="pages/case-study.html" class="mt-4 inline-block font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] hover:opacity-60 transition-opacity arrow-link"><span class="link-text">READ CASE STUDY</span></a>
         </div>
 
-        
+        <aside class="md:w-1/3 flex-shrink-0 hidden md:flex items-start justify-center">
+          <img src="assets/images/ets-image.png" alt="Event Ticket System screenshot" class="protect-img max-w-full h-auto rounded shadow-md">
+        </aside>
       </div>
     </section>
 
     <!-- ── ABOUT + LINKS ── -->
-    <section id="about-section" class="px-[5%] py-[5%] flex flex-col md:flex-row md:justify-between md:items-start gap-10 slide-in-left">
-      <div>
+    <section id="about-section" class="px-[5%] py-[5%] flex flex-col md:flex-row md:justify-between md:items-stretch gap-10 slide-in-left">
+      <div class="md:w-2/3">
         <p
-          class="font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] mb-[clamp(16px,3.8vw,46px)]">
+          class="section-title font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] mb-[clamp(16px,3.8vw,46px)]">
           ABOUT ME
         </p>
         <p class="text-black font-normal leading-[150%] text-[clamp(18px,2.2vw,28px)] about-text">
@@ -177,26 +155,26 @@
         </p>
       </div>
 
-      <div class="flex flex-col">
-        <a href="tel:+66924793925"
-          class="font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.75] hover:opacity-60 transition-opacity">
-          CONTACT ME
-        </a>
-        <a href="https://www.linkedin.com/in/chan-mya-mya-khin"
-          class="font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.75] hover:opacity-60 transition-opacity">
-          VIEW LINKEDIN
-        </a>
-        <a href="https://www.behance.net/chanmyamyakhin"
-          class="font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.75] hover:opacity-60 transition-opacity">
-          VIEW BEHANCE
-        </a>
+      <div class="md:w-1/3 right-column">
+        <div class="right-links">
+          <div class="social-row">
+            <a href="https://www.linkedin.com/in/chan-mya-mya-khin"
+              class="side-link hover:opacity-60 transition-opacity">
+              <span class="link-text">LinkedIn</span>
+            </a>
+            <a href="https://www.behance.net/chanmyamyakhin"
+              class="side-link hover:opacity-60 transition-opacity">
+              <span class="link-text">Behance</span>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ── FOOTER ── -->
     <footer class="text-center py-[clamp(24px,4vw,60px)]">
       <p class="text-black text-[15px] font-normal leading-[2.4]">
-        @ 2026 Design with Chan
+        Copyright © 2026 Design with Chan
       </p>
     </footer>
   </main>

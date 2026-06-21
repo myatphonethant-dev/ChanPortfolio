@@ -2,6 +2,11 @@
   font-family: 'DM Sans', -apple-system, Roboto, Helvetica, sans-serif;
 }
 
+:root {
+  --arrow-size: 20px;
+  --arrow-gap: 6px;
+}
+
 /* Hover-to-row styles */
 .hero {
   position: relative;
@@ -116,7 +121,8 @@
 }
 
 /* Ensure pages can scroll normally. Keep `.scrollable` as a scroll container. */
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -125,6 +131,7 @@ html, body {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
+
 .row-letters .letter-block:nth-child(2) {
   align-items: flex-start;
 }
@@ -150,7 +157,8 @@ html, body {
 /* ABOUT ME improvements */
 .about-text {
   max-width: 44ch;
-  text-align: left;
+  text-align: justify;
+  text-justify: inter-word;
   -webkit-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
@@ -158,4 +166,245 @@ html, body {
   orphans: 2;
   widows: 2;
   line-height: 1.6;
+}
+
+/* Reduce large vertical spacing in work and about sections */
+#work-section { padding-top: 3.5% !important; padding-bottom: 8% !important; }
+#about-section { padding-top: 2.5% !important; padding-bottom: 3% !important; }
+
+/* Tighten title margins to remove extra whitespace */
+.event-title, .section-title { margin-bottom: clamp(8px, 1.8vw, 20px) !important; }
+
+/* Slightly reduce divider spacing */
+.divider { margin: 8px 0 !important; height: 1px; }
+
+/* Scrollbar styling: ensure vertical scrollbar is visible and usable */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  /* Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.06);
+}
+
+/* WebKit browsers */
+body::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  border: 3px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Position the contact + social links at the bottom-right of the ABOUT section (right column) */
+/* ABOUT section layout: left content and right links column */
+#about-section { position: relative; }
+
+@media (min-width: 768px) {
+  /* Anchor .right-links to bottom-right inside the explicit right-column wrapper */
+  #about-section .right-column { position: relative; }
+  #about-section .right-column .right-links {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+  }
+
+  #about-section .right-links .social-row {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+  }
+
+  /* Increase link size and clickable area */
+  #about-section .right-links .side-link {
+    white-space: nowrap;
+    font-size: clamp(16px, 1.8vw, 22px);
+    padding: 6px 10px;
+  }
+
+  #about-section .right-links > a:first-child {
+    font-size: clamp(16px, 2vw, 24px);
+  }
+}
+
+/* Small screens: keep links in-flow below content */
+@media (max-width: 767px) {
+  #about-section .right-links {
+    position: static;
+    margin-top: 1rem;
+    flex-direction: row;
+    gap: 0.1rem;
+    align-items: center;
+  }
+  #about-section .right-links .side-link { font-size: clamp(13px, 2.2vw, 15px); }
+}
+
+/* Page layout and scroll behavior */
+html,
+body {
+  height: 100%;
+}
+
+/* Allow scrolling by default (show scrollbar). JS still toggles the loading state. */
+body {
+  overflow: auto;
+}
+
+/* Ensure native scrollbars are visible across browsers */
+body::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+body:hover::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+/* Keep page-loading marker for media gating (no forced position) */
+.page-loading {
+  touch-action: none;
+}
+
+/* Slide-in-from-left animation for slide-in sections (slower) */
+.slide-in-left {
+  transform: translateX(-120px);
+  opacity: 0;
+  transition: transform 1s cubic-bezier(.2, .9, .2, 1), opacity .6s ease;
+  will-change: transform, opacity;
+}
+
+.slide-in-left.in-view {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Stagger child content for nicer entrance */
+.slide-in-left .about-text {
+  transform: translateX(-20px);
+  opacity: 0;
+  transition: transform 1s cubic-bezier(.2, .9, .2, 1) .12s, opacity .6s ease .12s;
+}
+
+.slide-in-left.in-view .about-text {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Event description paragraph justified */
+.event-description {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.event-description::after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+}
+
+/* Allow opting out of justification for specific paragraphs */
+.event-description.no-justify {
+  text-align: left;
+  text-justify: auto;
+}
+
+/* About paragraph: justified for better reading */
+.about-text {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Section title sizing overrides (increase titles) */
+.event-title,
+.section-title {
+  font-size: clamp(20px, 3vw, 32px) !important;
+}
+
+/* Right-column link styling (small, right-aligned with arrow) */
+.right-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.side-link {
+  font-weight: 700;
+  font-size: clamp(12px, 1.2vw, 14px);
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.side-link::after {
+  content: '→';
+  display: inline-block;
+  margin-left: var(--arrow-gap);
+  font-size: var(--arrow-size);
+  font-weight: 900;
+  transform-origin: center;
+  transform: rotate(-45deg);
+  transition: transform .18s ease, opacity .12s ease;
+  pointer-events: none;
+}
+
+/* Arrow link styling for other links (e.g., READ CASE STUDY) */
+.arrow-link::after {
+  content: '→';
+  display: inline-block;
+  margin-left: var(--arrow-gap);
+  font-size: var(--arrow-size);
+  font-weight: 900;
+  transform-origin: center;
+  transform: rotate(-45deg);
+  transition: transform .18s ease, opacity .12s ease;
+  pointer-events: none;
+}
+
+.arrow-link {
+  position: relative;
+  display: inline-block;
+}
+
+/* Hover: underline only the link text and change arrow to point right and nudge it */
+.side-link:focus,
+.arrow-link:focus {
+  outline: none;
+}
+.side-link:hover .link-text,
+.arrow-link:hover .link-text,
+.side-link:focus .link-text,
+.arrow-link:focus .link-text {
+  text-decoration: underline;
+}
+.side-link:hover::after,
+.arrow-link:hover::after,
+.side-link:focus::after,
+.arrow-link:focus::after {
+  transform: rotate(0deg) translateX(6px);
+}
+
+/* Protect images from dragging/right-click (client-side deterrent) */
+.protect-img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
