@@ -32,7 +32,7 @@
 
 .letter h1 {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-                "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   font-size: clamp(24rem, 20vw, 38rem);
   font-weight: 900;
   line-height: 0.85;
@@ -87,6 +87,20 @@
   }
 }
 
+.bg-reveal {
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: -1;
+  opacity: 1;
+  transition: opacity 1.5s ease;
+}
+
+/* Fade away the white layer */
+body.video-unlocked .bg-reveal {
+  opacity: 0;
+}
+
 /* Fixed background image (covers viewport even when scrolling) */
 .fixed-bg {
   position: fixed;
@@ -95,11 +109,28 @@
   height: 100%;
   object-fit: cover;
   z-index: -1;
-  pointer-events: none;
+  filter: blur(8px);
   opacity: 0;
-  transition: opacity 0.8s ease;
-  will-change: transform, opacity;
+  visibility: hidden;
+  transform: scale(1.08);
+
+  transition:
+    opacity 1.2s ease,
+    transform 1.6s ease,
+    visibility 0s linear 1.2s;
+  background: white;
 }
+
+body.video-unlocked .fixed-bg {
+  opacity: 0.35;
+  visibility: visible;
+  transform: scale(1);
+  filter: blur(0);
+  transition:
+    opacity 1.2s ease,
+    transform 1.6s ease;
+}
+
 .fixed-bg.visible {
   opacity: 0.35;
 }
@@ -131,14 +162,27 @@ body {
 }
 
 /* Reduce large vertical spacing in work and about sections */
-#work-section { padding-top: 3.5% !important; padding-bottom: 8% !important; }
-#about-section { padding-top: 2.5% !important; padding-bottom: 3% !important; }
+#work-section {
+  padding-top: 3.5% !important;
+  padding-bottom: 8% !important;
+}
+
+#about-section {
+  padding-top: 2.5% !important;
+  padding-bottom: 3% !important;
+}
 
 /* Tighten title margins to remove extra whitespace */
-.event-title, .section-title { margin-bottom: clamp(8px, 1.8vw, 20px) !important; }
+.event-title,
+.section-title {
+  margin-bottom: clamp(8px, 1.8vw, 20px) !important;
+}
 
 /* Slightly reduce divider spacing */
-.divider { margin: 8px 0 !important; height: 1px; }
+.divider {
+  margin: 8px 0 !important;
+  height: 1px;
+}
 
 /* Scrollbar styling: ensure vertical scrollbar is visible and usable */
 html,
@@ -171,11 +215,17 @@ body::-webkit-scrollbar-thumb {
 
 /* Position the contact + social links at the bottom-right of the ABOUT section (right column) */
 /* ABOUT section layout: left content and right links column */
-#about-section { position: relative; }
+#about-section {
+  position: relative;
+}
 
 @media (min-width: 768px) {
+
   /* Anchor .right-links to bottom-right inside the explicit right-column wrapper */
-  #about-section .right-column { position: relative; }
+  #about-section .right-column {
+    position: relative;
+  }
+
   #about-section .right-column .right-links {
     position: absolute;
     right: 1rem;
@@ -199,7 +249,7 @@ body::-webkit-scrollbar-thumb {
     padding: 6px 10px;
   }
 
-  #about-section .right-links > a:first-child {
+  #about-section .right-links>a:first-child {
     font-size: clamp(16px, 2vw, 24px);
   }
 }
@@ -213,7 +263,10 @@ body::-webkit-scrollbar-thumb {
     gap: 0.1rem;
     align-items: center;
   }
-  #about-section .right-links .side-link { font-size: clamp(13px, 2.2vw, 15px); }
+
+  #about-section .right-links .side-link {
+    font-size: clamp(13px, 2.2vw, 15px);
+  }
 }
 
 /* Page layout and scroll behavior */
@@ -359,12 +412,14 @@ body:hover::-webkit-scrollbar {
 .arrow-link:focus {
   outline: none;
 }
+
 .side-link:hover .link-text,
 .arrow-link:hover .link-text,
 .side-link:focus .link-text,
 .arrow-link:focus .link-text {
   text-decoration: underline;
 }
+
 .side-link:hover::after,
 .arrow-link:hover::after,
 .side-link:focus::after,

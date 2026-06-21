@@ -13,11 +13,14 @@
 </head>
 
 <body class="bg-white page-loading">
+  </div>
   <main class="scrollable min-h-screen">
     <!-- ── HERO ── -->
     <section class="hero">
       <!-- Background network image (fixed) -->
-      <video id="hero-bg-video" src="assets/videos/background.m4v" autoplay muted loop playsinline preload="auto" class="fixed-bg"></video>
+       <div class="bg-reveal"></div>
+      <video id="hero-bg-video" src="assets/videos/background.m4v" autoplay muted loop playsinline preload="auto"
+        class="fixed-bg"></video>
 
       <div class="letter c">
         <h1>C</h1>
@@ -44,21 +47,29 @@
     <section id="work-section" class="px-[5%] pt-[7.8%] pb-[20%] ">
       <div class="md:flex md:items-stretch md:gap-8">
         <div class="md:flex-1">
-          <p class="event-title font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] mb-[clamp(16px,3.8vw,46px)]">EVENT TICKET SYSTEM</p>
+          <p
+            class="event-title font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] mb-[clamp(16px,3.8vw,46px)]">
+            EVENT TICKET SYSTEM</p>
           <p class="text-black font-normal leading-[150%] text-[clamp(18px,2.2vw,28px)] about-text event-description">
-            A user-friendly event booking platform that enables users to browse events, purchase tickets, and verify bookings through email OTP authentication. The system includes digital ticket generation and QR code validation to ensure a secure and seamless event experience.
+            A user-friendly event booking platform that enables users to browse events, purchase tickets, and verify
+            bookings through email OTP authentication. The system includes digital ticket generation and QR code
+            validation to ensure a secure and seamless event experience.
           </p>
-          <a href="pages/case-study.html" class="mt-4 inline-block font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] arrow-link"><span class="link-text">READ CASE STUDY</span></a>
+          <a href="pages/case-study.html"
+            class="mt-4 inline-block font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] arrow-link"><span
+              class="link-text">READ CASE STUDY</span></a>
         </div>
 
         <aside class="md:w-1/3 flex-shrink-0 hidden md:flex items-start justify-center">
-          <img src="assets/images/ets-image.png" alt="Event Ticket System screenshot" class="protect-img max-w-full h-auto rounded shadow-md">
+          <img src="assets/images/ets-image.png" alt="Event Ticket System screenshot"
+            class="protect-img max-w-full h-auto rounded shadow-md">
         </aside>
       </div>
     </section>
 
     <!-- ── ABOUT + LINKS ── -->
-    <section id="about-section" class="px-[5%] py-[5%] flex flex-col md:flex-row md:justify-between md:items-stretch gap-10 ">
+    <section id="about-section"
+      class="px-[5%] py-[5%] flex flex-col md:flex-row md:justify-between md:items-stretch gap-10 ">
       <div class="md:w-2/3">
         <p
           class="section-title font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] mb-[clamp(16px,3.8vw,46px)]">
@@ -78,12 +89,10 @@
       <div class="md:w-1/3 right-column">
         <div class="right-links">
           <div class="social-row">
-            <a href="https://www.linkedin.com/in/chan-mya-mya-khin"
-              class="side-link">
+            <a href="https://www.linkedin.com/in/chan-mya-mya-khin" class="side-link">
               <span class="link-text">LinkedIn</span>
             </a>
-            <a href="https://www.behance.net/chanmyamyakhin"
-              class="side-link">
+            <a href="https://www.behance.net/chanmyamyakhin" class="side-link">
               <span class="link-text">Behance</span>
             </a>
           </div>
@@ -119,6 +128,20 @@
     })();
   </script>
   <script>
+
+    (function () {
+      var body = document.body;
+      var letters = document.querySelectorAll('.letter');
+
+      function unlockVideo() {
+        body.classList.add('video-unlocked');
+      }
+
+      letters.forEach(function (el) {
+        el.addEventListener('mouseenter', unlockVideo, { once: true });
+        el.addEventListener('touchstart', unlockVideo, { once: true });
+      });
+    })();
     // Lock scrolling until the user hovers over the words "CHAN"
     (function () {
       // Force scroll to top on refresh/load
@@ -163,7 +186,7 @@
         var imgs = Array.prototype.slice.call(document.querySelectorAll('.protect-img'));
         if (!imgs.length) return;
         imgs.forEach(function (img) {
-          try { img.setAttribute('draggable', 'false'); } catch (e) {}
+          try { img.setAttribute('draggable', 'false'); } catch (e) { }
           img.addEventListener('dragstart', function (e) { e.preventDefault(); });
         });
         document.addEventListener('contextmenu', function (e) {
