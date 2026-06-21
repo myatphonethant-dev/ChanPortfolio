@@ -63,10 +63,7 @@
   transform: translateY(80px);
 }
 
-.hero:hover .c,
-.hero:hover .h,
-.hero:hover .a,
-.hero:hover .n {
+.hero:has(.letter:hover) .letter {
   transform: translateY(0);
 }
 
@@ -248,6 +245,10 @@ body:hover::-webkit-scrollbar {
 /* Keep page-loading marker for media gating (no forced position) */
 .page-loading {
   touch-action: none;
+}
+
+.page-loading .letter {
+  transition: none !important;
 }
 
 /* Slide-in-from-left animation for slide-in sections (slower) */
