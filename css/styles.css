@@ -7,106 +7,88 @@
   --arrow-gap: 6px;
 }
 
-/* Hover-to-row styles */
+/* Hero section layouts & animations */
 .hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 8rem);
+  padding: 2rem;
   position: relative;
 }
 
-.scattered {
-  transition: opacity 400ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
-  z-index: 10;
-  will-change: opacity, transform;
-  pointer-events: none;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transform: translateZ(0);
-}
-
-.row-letters {
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  transform: translate(-50%, -50%) translateZ(0);
-  display: flex;
-  gap: 6.8vw;
-  align-items: flex-end;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 400ms ease;
-  z-index: 20;
-  backface-visibility: hidden;
-}
-
-.row-letters .letter-block {
+.letter {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(6px, 1.5vw, 28px);
-  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease;
-  opacity: 0;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
+  justify-content: center;
+  transition: transform .8s cubic-bezier(.76, 0, .24, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
-/* C and A (1st, 3rd) start from ABOVE their scattered positions — fall DOWN */
-.row-letters .letter-block:nth-child(odd) {
-  transform: translateY(-20vw);
-}
-
-/* H and N (2nd, 4th) start from BELOW their column centroids — rise UP */
-.row-letters .letter-block:nth-child(even) {
-  transform: translateY(12vw);
-}
-
-.row-letters svg {
-  height: auto;
-  fill: black;
-  display: block;
-}
-
-/* Match each letter's original scattered width exactly */
-.row-letters .letter-block:nth-child(1) svg {
-  width: 14vw;
-}
-
-/* C */
-.row-letters .letter-block:nth-child(2) svg {
-  width: 17.1vw;
-}
-
-/* H */
-.row-letters .letter-block:nth-child(3) svg {
-  width: 19.5vw;
-}
-
-/* A */
-.row-letters .letter-block:nth-child(4) svg {
-  width: 16.7vw;
-}
-
-/* N */
-
-/* Match original labels' size/style exactly */
-.row-letters .label {
+.letter h1 {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  font-size: clamp(24rem, 20vw, 38rem);
   font-weight: 900;
-  font-size: clamp(8px, 2vw, 24px);
-  line-height: 1;
-  white-space: nowrap;
+  line-height: 0.85;
+  letter-spacing: 0.01em;
+  margin: 0;
 }
 
-/* Increase vertical separation between letter SVG and label in hover row */
-.row-letters .label {
-  margin-top: clamp(6px, 1.2vw, 18px);
-}
-
-/* C, A, N labels are centered in the original */
-.row-letters .letter-block:nth-child(1) .label,
-.row-letters .letter-block:nth-child(3) .label,
-.row-letters .letter-block:nth-child(4) .label {
+.letter p {
+  font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+  font-weight: 700;
+  margin-top: 8px;
   text-align: center;
 }
 
-/* BACK-END DEVELOPER is left-aligned in the original (no text-center class) */
+.c {
+  transform: translateY(-80px);
+}
+
+.h {
+  transform: translateY(80px);
+}
+
+.a {
+  transform: translateY(-80px);
+}
+
+.n {
+  transform: translateY(80px);
+}
+
+.hero:hover .c,
+.hero:hover .h,
+.hero:hover .a,
+.hero:hover .n {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .letter h1 {
+    font-size: clamp(2.5rem, 12vw, 5rem);
+  }
+
+  .letter p {
+    font-size: 0.65rem;
+    margin-top: 4px;
+  }
+}
 
 /* Fixed background image (covers viewport even when scrolling) */
 .fixed-bg {
@@ -117,7 +99,12 @@
   object-fit: cover;
   z-index: -1;
   pointer-events: none;
-  will-change: transform;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  will-change: transform, opacity;
+}
+.fixed-bg.visible {
+  opacity: 0.35;
 }
 
 /* Ensure pages can scroll normally. Keep `.scrollable` as a scroll container. */
@@ -130,28 +117,6 @@ body {
   min-height: 100vh;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-}
-
-.row-letters .letter-block:nth-child(2) {
-  align-items: flex-start;
-}
-
-.row-letters .letter-block:nth-child(2) .label {
-  text-align: left;
-}
-
-.hero:hover .row-letters {
-  opacity: 1;
-}
-
-.hero:hover .row-letters .letter-block {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.hero:hover .scattered {
-  opacity: 0;
-  transform: translateY(6px);
 }
 
 /* ABOUT ME improvements */
@@ -260,8 +225,12 @@ body {
   height: 100%;
 }
 
-/* Allow scrolling by default (show scrollbar). JS still toggles the loading state. */
+/* Allow scrolling only when enabled. JS toggles scroll-enabled. */
 body {
+  overflow: hidden;
+}
+
+body.scroll-enabled {
   overflow: auto;
 }
 
