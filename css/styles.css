@@ -122,7 +122,7 @@ body {
 /* ABOUT ME improvements */
 .about-text {
   max-width: 44ch;
-  text-align: justify;
+  /* text-align: justify; */
   text-justify: inter-word;
   -webkit-hyphens: none;
   -ms-hyphens: none;
@@ -277,7 +277,7 @@ body:hover::-webkit-scrollbar {
 
 /* Event description paragraph justified */
 .event-description {
-  text-align: justify;
+  /* text-align: justify; */
   text-justify: inter-word;
 }
 
@@ -295,7 +295,7 @@ body:hover::-webkit-scrollbar {
 
 /* About paragraph: justified for better reading */
 .about-text {
-  text-align: justify;
+  /* text-align: justify; */
   text-justify: inter-word;
 }
 
