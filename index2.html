@@ -4,114 +4,1235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHAN - UI/UX Designer & Back-end Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>Event Ticketing System - Case Study</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,900;1,9..40,400&family=Figtree:wght@400;600;700;900&display=swap"
+        rel="stylesheet">
     <style>
-        .hero {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: clamp(1.5rem, 4vw, 8rem);
-            padding: 2rem;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .letter {
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, Roboto, Helvetica, sans-serif;
+            color: #030812;
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Hero Image */
+        .hero {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .hero img {
+            width: 100%;
+            object-fit: fill;
+            max-height: 630px;
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 40px 0px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: transform .8s cubic-bezier(.76, 0, .24, 1);
+            gap: 40px;
         }
 
-        .letter h1 {
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-                "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+        @media (min-width: 1024px) {
+            .container {
+                padding: 40px 0px;
+                gap: 60px;
+            }
+        }
 
-            font-size: clamp(28rem, 22vw, 42rem);
+        /* Section Styles */
+        .section-two-col {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        @media (min-width: 1024px) {
+            .section-two-col {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 40px;
+            }
+        }
+
+        .section-two-col>div:first-child {
+            flex: 0 0 auto;
+            min-width: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .section-two-col>div:first-child {
+                width: 47%;
+            }
+        }
+
+        .section-two-col>div:last-child {
+            flex: 1;
+            min-width: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .section-two-col>div:last-child {
+                width: 48%;
+            }
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: #000000;
+            margin-bottom: 0;
+        }
+
+        @media (min-width: 640px) {
+            h2 {
+                font-size: 30px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            h2 {
+                font-size: 32px;
+            }
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        @media (min-width: 640px) {
+            h3 {
+                font-size: 22px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            h3 {
+                font-size: 32px;
+            }
+        }
+
+        p,
+        ul {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+        }
+
+        @media (min-width: 640px) {
+
+            p,
+            ul {
+                font-size: 18px;
+            }
+        }
+
+        ul {
+            list-style: disc;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Full Width Section */
+        .section-full {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .section-full img {
+            width: 100%;
+            height: auto;
+        }
+
+        .section-half {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .section-half img {
+            width: 70%;
+            height: auto;
+        }
+
+        /* Color Palette Section */
+        .color-section {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        @media (min-width: 1024px) {
+            .color-section {
+                flex-direction: row;
+                gap: 64px;
+            }
+        }
+
+        .color-swatches {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        @media (min-width: 640px) {
+            .color-swatches {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .color-swatches {
+                grid-template-columns: repeat(2, 1fr);
+                width: 420px;
+                flex-shrink: 0;
+            }
+        }
+
+        .color-swatch {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .color-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (min-width: 640px) {
+            .color-circle {
+                width: 96px;
+                height: 96px;
+            }
+        }
+
+        .color-label {
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        @media (min-width: 640px) {
+            .color-label {
+                font-size: 16px;
+            }
+        }
+
+        .color-descriptions {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            flex: 1;
+        }
+
+        .color-desc {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            white-space: pre-line;
+        }
+
+        @media (min-width: 640px) {
+            .color-desc {
+                font-size: 18px;
+            }
+        }
+
+        /* Typography Section */
+        .typography-section {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        @media (min-width: 1024px) {
+            .typography-section {
+                flex-direction: row;
+                gap: 56px;
+                align-items: flex-start;
+            }
+        }
+
+        .typography-left {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        @media (min-width: 1024px) {
+            .typography-left {
+                width: 47%;
+            }
+        }
+
+        .typography-right {
+            flex: 1;
+        }
+
+        @media (min-width: 1024px) {
+            .typography-right {
+                padding-top: 64px;
+                width: 47%;
+            }
+        }
+
+        .figtree-title {
+            font-family: 'Figtree', sans-serif;
             font-weight: 900;
-            line-height: 0.85;
-            letter-spacing: 0.01em;
+            color: #000000;
+            line-height: 1;
+            font-size: clamp(48px, 8vw, 100px);
+        }
+
+        .typography-samples {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .typography-sample {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .sample-letter {
+            font-family: 'Figtree', sans-serif;
+            font-size: clamp(32px, 5vw, 50px);
+            font-weight: 400;
+            color: #000000;
+            text-align: center;
+            line-height: 1;
+            min-width: 60px;
+        }
+
+        .sample-letter.bold {
+            font-weight: 700;
+        }
+
+        .sample-letter.semi-bold {
+            font-weight: 600;
+        }
+
+        .sample-label {
+            font-family: 'Figtree', sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            color: #000000;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        @media (min-width: 640px) {
+            .sample-label {
+                font-size: 20px;
+            }
+        }
+
+        .sample-size {
+            font-family: 'Figtree', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #000000;
+            white-space: nowrap;
+        }
+
+        .sample-size.bold {
+            font-weight: 700;
+        }
+
+        .sample-label.bold {
+            font-weight: 700;
+        }
+
+        .sample-label.semi-bold {
+            font-weight: 600;
+        }
+
+        @media (min-width: 640px) {
+            .sample-size {
+                font-size: 16px;
+            }
+        }
+
+        /* Feature Sections */
+        .features-container {
+            display: flex;
+            flex-direction: column;
+            gap: 56px;
+        }
+
+        @media (min-width: 1024px) {
+            .features-container {
+                gap: 64px;
+            }
+        }
+
+        .feature-row {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .feature-row {
+                flex-direction: row;
+                gap: 48px;
+            }
+        }
+
+        .feature-row.reverse {
+            flex-direction: column;
+        }
+
+        @media (min-width: 1024px) {
+            .feature-row.reverse {
+                flex-direction: row-reverse;
+            }
+        }
+
+        .feature-image {
+            /* width: 100%; */
+            flex-shrink: 0;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+        }
+
+        @media (min-width: 1024px) {
+            .feature-image {
+                width: 50%;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .typography-section {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 40px;
+            }
+
+            .typography-left {
+                width: 47%;
+            }
+
+            .typography-right {
+                width: 48%;
+                padding-top: 0;
+            }
+        }
+
+        .feature-image img {
+            width: 70%;
+            height: auto;
+        }
+
+        .feature-text {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @media (min-width: 1024px) {
+            .feature-text {
+                width: 50%;
+            }
+        }
+
+        .feature-text h3 {
             margin: 0;
         }
 
-        .letter p {
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-                "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+        .feature-text p {
+            margin: 0;
+        }
 
-            font-size: clamp(0.9rem, 1.2vw, 1.4rem);
-            font-weight: 700;
-            margin-top: 8px;
+        /* Pain Points Table */
+        .pain-points {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pain-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #000000;
+        }
+
+        .pain-header div {
+            flex: 1;
+            font-size: 18px;
+            font-weight: 500;
+            color: #000000;
+        }
+
+        @media (min-width: 640px) {
+            .pain-header div {
+                font-size: 20px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .pain-header div {
+                font-size: 22px;
+            }
+        }
+
+        .pain-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px 0;
+            border-bottom: 1px solid #000000;
+        }
+
+        .pain-row p {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #000000;
+            margin: 0;
+        }
+
+        @media (min-width: 640px) {
+            .pain-row p {
+                font-size: 16px;
+            }
+        }
+
+        /* User Persona */
+        .persona-card {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .persona-image {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            max-width: 358px;
+        }
+
+        .persona-image img {
+            width: 75%;
+            height: 80%;
+            border-radius: 4px;
+        }
+
+        .persona-name {
+            font-size: 24px;
+            font-weight: 500;
+            color: #000000;
             text-align: center;
+            width: 100%;
         }
 
-        .c {
-            transform: translateY(-60px);
+        @media (min-width: 640px) {
+            .persona-name {
+                font-size: 30px;
+            }
         }
 
-        .h {
-            transform: translateY(60px);
+        @media (min-width: 1024px) {
+            .persona-name {
+                font-size: 32px;
+            }
         }
 
-        .a {
-            transform: translateY(-40px);
+        .persona-quote {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
         }
 
-        .n {
-            transform: translateY(60px);
+        @media (min-width: 640px) {
+            .persona-quote {
+                font-size: 18px;
+            }
         }
 
-        .hero:hover .c,
-        .hero:hover .h,
-        .hero:hover .a,
-        .hero:hover .n {
-            transform: translateY(0);
+        /* Information Architecture */
+        .ia-diagram {
+            width: 100%;
+            overflow-x: auto;
         }
 
-        @media (max-width: 768px) {
-            .hero {
+        .ia-node {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid #071739;
+            text-align: center;
+            min-width: 120px;
+            display: inline-block;
+        }
+
+        @media (min-width: 640px) {
+            .ia-node {
+                font-size: 16px;
+                min-width: 140px;
+            }
+        }
+
+        .ia-node.highlight {
+            background-color: #071739;
+            color: #ffffff;
+            border-color: #071739;
+        }
+
+        .ia-connector {
+            width: 1px;
+            background-color: #071739;
+            margin: 8px 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #071739;
+            width: 100%;
+        }
+
+        .footer-copyright {
+            color: #ffffff;
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        @media (min-width: 640px) {
+            .footer-content {
+                padding: 48px 40px;
                 flex-direction: row;
-                flex-wrap: nowrap;
-                gap: 1rem;
-                padding: 1rem;
                 align-items: center;
                 justify-content: space-between;
+                gap: 24px;
             }
+        }
 
-            .letter h1 {
-                font-size: clamp(2.5rem, 12vw, 5rem);
+        @media (min-width: 1024px) {
+            .footer-content {
+                padding: 48px 60px;
             }
+        }
 
-            .letter p {
-                font-size: 0.65rem;
-                margin-top: 4px;
+        .footer-title {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        @media (min-width: 640px) {
+            .footer-title {
+                font-size: 30px;
             }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-title {
+                font-size: 32px;
+            }
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        @media (min-width: 640px) {
+            .footer-links {
+                gap: 36px;
+            }
+        }
+
+        .footer-content {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 48px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        @media (min-width: 640px) {
+            .footer-link {
+                font-size: 18px;
+            }
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+        }
+
+        .footer-link svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Key Learning */
+        .key-learning {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        @media (min-width: 1024px) {
+            .key-learning {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 40px;
+            }
+        }
+
+        .key-learning>div:first-child {
+            width: 100%;
+        }
+
+        @media (min-width: 1024px) {
+            .key-learning>div:first-child {
+                width: 35%;
+                flex-shrink: 0;
+            }
+        }
+
+        .key-learning>div:last-child {
+            width: 100%;
+        }
+
+        @media (min-width: 1024px) {
+            .key-learning>div:last-child {
+                width: 47%;
+            }
+        }
+
+        .key-learning p {
+            margin: 0;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 1000;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 12px 20px;
+
+            background: #071739;
+            color: #ffffff;
+
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+
+            border-radius: 999px;
+
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(7, 23, 57, 0.2);
+        }
+
+        .back-button:hover {
+            background: #103263;
+            transform: translateY(-2px);
+        }
+
+        .back-button:active {
+            transform: translateY(0);
         }
     </style>
 </head>
 
 <body>
+    <!-- Hero Image -->
     <div class="hero">
-        <div class="letter c">
-            <h1>C</h1>
-            <p>UI/UX DESIGN</p>
-        </div>
-
-        <div class="letter h">
-            <h1>H</h1>
-            <p>BACK-END DEVELOPER</p>
-        </div>
-
-        <div class="letter a">
-            <h1>A</h1>
-            <p>BASED IN BANGKOK</p>
-        </div>
-
-        <div class="letter n">
-            <h1>N</h1>
-            <p>FROM MYANMAR</p>
-        </div>
+        <a href="http://chanmyamyakhin.website/" class="back-button">
+            ← Back
+        </a>
+        <img src="assets/images/banner.png" alt="Event Ticketing System Case Study">
     </div>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- PROJECT OVERVIEW -->
+        <section class="section-two-col">
+            <div>
+                <h2>PROJECT OVERVIEW</h2>
+            </div>
+            <div>
+                <p>The Event Ticketing System is a platform that helps users discover, compare, and book events with
+                    confidence. Users can browse events, compare prices, read reviews, and purchase tickets in one
+                    place. Additionally, business owners can explore venues and send quotations directly without hosting
+                    events. The platform bridges the gap between users and venue providers, creating a more efficient
+                    and affordable event planning experience.</p>
+            </div>
+        </section>
+
+        <!-- Framing the Problem -->
+        <section class="section-two-col">
+            <div>
+                <h2>FRAMING THE EVENT BOOKING EXPERIENCE CHALLENGES</h2>
+            </div>
+            <div>
+                <p>Users often struggle to discover and compare suitable events, leading to a less confident and
+                    inefficient booking experience. For business owners, venue discovery is fragmented, making it
+                    difficult to find relevant venues and express interest effectively. As a result, communication
+                    between users and venue providers can become delayed, affecting the overall efficiency of the
+                    booking process.</p>
+            </div>
+        </section>
+
+        <!-- PROJECT GOALS -->
+        <section class="section-two-col">
+            <div>
+                <h2>PROJECT GOALS</h2>
+            </div>
+            <div>
+                <ul>
+                    <li>Design a unified event ticketing platform for event discovery, comparison, and booking</li>
+                    <li>Improve user experience by reducing friction in finding and booking events</li>
+                    <li>Enable users to confidently compare events using clear and centralized information</li>
+                    <li>Simplify venue discovery and quotation requests for business owners and organizers</li>
+                    <li>Improve communication between users, businesses, and venue providers</li>
+                    <li>Create a connected ecosystem that streamlines the end-to-end event booking process</li>
+                    <li>Increase efficiency, transparency, and accessibility across the platform</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- COMPETITIVE ANALYSIS -->
+        <section class="section-full">
+            <h2>COMPETITIVE ANALYSIS</h2>
+            <section class="section-half">
+                <img src="assets/images/design/competitive-analysis.png" alt="Competitive Analysis">
+            </section>
+        </section>
+
+        <!-- USER RESEARCH -->
+        <section class="section-two-col">
+            <div>
+                <h2>USER RESEARCH</h2>
+            </div>
+            <div>
+                <ul>
+                    <li>Users struggle with scattered event information and poor discoverability</li>
+                    <li>Comparing events is difficult, leading to low booking confidence</li>
+                    <li>Users prefer a centralized platform with clear filtering and comparison</li>
+                    <li>Venue discovery and communication for businesses is slow and fragmented</li>
+                    <li>Users expect a simple, fast booking flow with clear pricing and confirmation</li>
+                    <li>Lack of transparency reduces trust in existing event platforms</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- USER PERSONA -->
+        <section class="section-two-col">
+            <div class="persona-card">
+                <h2>USER PERSONA</h2>
+                <div class="persona-image">
+                    <img src="assets/images/design/user.png" alt="Photo of James">
+                    <div class="persona-name">James</div>
+                </div>
+                <p class="persona-quote">"I miss out on events because my busy schedule <br> makes it hard to find and
+                    book
+                    good tickets in time."</p>
+            </div>
+
+            <div class="pain-points">
+                <div class="pain-header">
+                    <div>PAIN POINTS</div>
+                    <div>WALKAROUNDS</div>
+                </div>
+                <div class="pain-row">
+                    <p>Time-Consuming Ticket Searches: Manually comparing multiple websites to find available events
+                        that fit his busy schedule is exhausting.</p>
+                    <p>He often skips searching and misses out on events or settles for less-than-ideal options to save
+                        time.</p>
+                </div>
+                <div class="pain-row">
+                    <p>Complex Checkout Processes: Long, multi-step forms and unstable websites make the purchase
+                        process feel tedious and risky.</p>
+                    <p>He abandons his cart immediately if the website is too complicated or experiences technical
+                        glitches during purchase.</p>
+                </div>
+                <div class="pain-row">
+                    <p>Hidden Fees: Extra service or convenience fees that appear only at the final checkout stage cause
+                        significant frustration and distrust.</p>
+                    <p>He actively avoids platforms that hide costs and prefers services that provide transparent,
+                        "all-in" pricing upfront.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- INFORMATION ARCHITECTURE -->
+        <section class="section-full">
+            <h2>INFORMATION ARCHITECTURE</h2>
+            <section class="section-half">
+                <img src="assets/images/design/information-architecture.png" alt="Information Architecture">
+            </section>
+        </section>
+
+        <!-- USER FLOW -->
+        <section class="section-full">
+            <h2>USER FLOW</h2>
+            <section class="section-half">
+                <img src="assets/images/design/user-flow.png" alt="User Flow Diagram">
+            </section>
+        </section>
+
+        <!-- COLOR PALETTE -->
+        <section class="section-full">
+            <h2>COLOR PALETTE</h2>
+            <div class="section-two-col">
+                <div>
+                    <div class="color-swatches">
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #071739;"></div>
+                            <span class="color-label" style="color: #071739;">#080739</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #103263;"></div>
+                            <span class="color-label" style="color: #103263;">#103263</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #030812;"></div>
+                            <span class="color-label" style="color: #030812;">#030812</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #FAFAFA; border: 2px solid #000;"></div>
+                            <span class="color-label" style="color: #030812;">#FAFAFA</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #FF4D4D;"></div>
+                            <span class="color-label" style="color: #FF4D4D;">#FF4D4D</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #898989;"></div>
+                            <span class="color-label" style="color: #898989;">#898989</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #C0C0C0;"></div>
+                            <span class="color-label" style="color: #C0C0C0;">#C0C0C0</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #6F6C8F;"></div>
+                            <span class="color-label" style="color: #6F6C8F;">#D9D9D9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="color-descriptions">
+                    <div class="color-desc">Primary (#080739): Dark navy blue for trust, security, and professional feel
+                        in ticket purchasing.
+                        Secondary (#103263): Bright blue for interactive elements and visual hierarchy.</div>
+                    <div class="color-desc">Text (#030812, #FAFAFA): High-contrast dark and white for readability across
+                        backgrounds</div>
+                    <div class="color-desc">Error (#FF4D4D): Red for warnings and errors to ensure quick user attention.
+                    </div>
+                    <div class="color-desc">Neutral Gray (#D9D9D9 / #898989 / #C0C0C0): Used for secondary UI elements,
+                        placeholders, borders, and disabled states to support hierarchy</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TYPOGRAPHY -->
+        <section class="typography-section">
+            <div class="typography-left">
+                <h2>TYPOGRAPHY</h2>
+                <div class="typography-samples">
+                    <div class="figtree-title" style="margin-bottom: 24px;">Figtree</div>
+                    <div style="display: flex; justify-content: flex-start; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px; width: 220px;">
+                            <div class="sample-letter bold">Aa</div>
+                            <span class="sample-label bold">Bold</span>
+                        </div>
+                        <span class="sample-size bold">Size: 40px</span>
+                    </div>
+                    <div style="display: flex; justify-content: flex-start; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px; width: 220px;">
+                            <div class="sample-letter semi-bold">Aa</div>
+                            <span class="sample-label semi-bold">Semi Bold</span>
+                        </div>
+                        <span class="sample-size">Size: 16px</span>
+                    </div>
+                    <div style="display: flex; justify-content: flex-start; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px; width: 220px;">
+                            <div class="sample-letter">Aa</div>
+                            <span class="sample-label">Regular</span>
+                        </div>
+                        <span class="sample-size">Size: 16px</span>
+                    </div>
+                </div>
+            </div>
+            <div class="typography-right">
+                <p>Figtree was chosen for its clean, modern look and high readability, ensuring clear event information
+                    and a consistent, professional UI across the system.</p>
+            </div>
+        </section>
+
+        <!-- GRID SYSTEM -->
+        <section class="section-full">
+            <h2>GRID SYSTEM</h2>
+            <span class="grid-info-text">Margin : 60 Px , Gutter : 20 Px</span>
+            <img src="assets/images/design/grid.png" alt="Grid System">
+        </section>
+
+        <!-- DESIGNING INTERACTIVE EXPERIENCE -->
+        <section class="section-full">
+            <h2>DESIGNING INTERACTIVE EXPERIENCE</h2>
+            <div class="features-container">
+                <div class="feature-row">
+                    <div class="feature-image">
+                        <img src="https://api.builder.io/api/v1/image/assets/TEMP/61bcdfe346fa04e6f06daf2a17185ef15050f5e7?width=1110"
+                            alt="Home page screenshot">
+                    </div>
+                    <div class="feature-text">
+                        <h3>DISCOVERING EXCITING EVENTS</h3>
+                        <p>When he enters the Event Ticket System, he can see featured events, popular venues, and
+                            important event information displayed on the Home Page. The system helps him quickly
+                            discover upcoming events and navigate to different sections to explore more details and
+                            book
+                            tickets.</p>
+                    </div>
+                </div>
+
+                <div class="feature-row reverse">
+                    <div class="feature-image">
+                        <img src="https://api.builder.io/api/v1/image/assets/TEMP/5b85737f4fabaaabbb79fd524a02e9517f76d2c2?width=1110"
+                            alt="Trending events screenshot">
+                    </div>
+                    <div class="feature-text">
+                        <h3>EXPLORING EVENTS EASILY</h3>
+                        <p>He can see featured and trending events on the Home Page. By clicking "View All," he goes
+                            to
+                            the Events Page where he can browse all or trending events. He can then view event
+                            details,
+                            locations, and venues to choose an event that matches his interests.</p>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-image">
+                        <img src="https://api.builder.io/api/v1/image/assets/TEMP/c79bbd726289b7d70e50c3e950d558a19e624039?width=1110"
+                            alt="Event detail screenshot">
+                    </div>
+                    <div class="feature-text">
+                        <h3>EMPOWERING THE USER FROM DISCOVERY TO PURCHASE</h3>
+                        <p>The Event Ticket System empowers the user to effortlessly explore event details and
+                            secure
+                            his tickets directly within the interface, allowing him to make informed decisions and
+                            complete his booking in a seamless, stress-free flow without ever needing to leave the
+                            page.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="feature-row reverse">
+                    <div class="feature-image">
+                        <img src="https://api.builder.io/api/v1/image/assets/TEMP/06af9b8e955f6fc1e4c57427f44cd9a030ea6b14?width=1114"
+                            alt="Event user info screenshot">
+                    </div>
+                    <div class="feature-text">
+                        <h3>QUICK TICKET CHECKOUT</h3>
+                        <p>Once he decides to attend, he can enter his details, select a ticket type, and complete
+                            the
+                            booking in just a few steps. The streamlined checkout process helps him secure his
+                            ticket
+                            quickly and effortlessly.</p>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-image">
+                        <img src="https://api.builder.io/api/v1/image/assets/TEMP/f12ac4dd50440c8839fb09aae6447e63ea59d841?width=1118"
+                            alt="OTP overlay screenshot">
+                    </div>
+                    <div class="feature-text">
+                        <h3>SECURE EMAIL VERIFICATION</h3>
+                        <p>After submitting the booking details, he verifies his email with a 5-digit OTP. This
+                            quick
+                            step confirms his identity and allows him to complete the ticket purchase securely.</p>
+                    </div>
+                </div>
+
+                <div class="feature-row reverse">
+                    <div class="feature-image">
+                        <img src="https://api.builder.io/api/v1/image/assets/TEMP/ef070e79c226f335271959d1e84676b5bbeed687?width=1108"
+                            alt="QR upload screenshot">
+                    </div>
+                    <div class="feature-text">
+                        <h3>SECURE TICKET VERIFICATION</h3>
+                        <p>After purchasing a ticket, he can upload the QR code to verify its validity. The system
+                            instantly displays the ticket and event details, allowing the user to confirm the
+                            booking
+                            quickly and securely.</p>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-image">
+                        <img src="https://api.builder.io/api/v1/image/assets/TEMP/16e9ef1804e423cb679a0b1aa6a21f2bb59a34eb?width=1108"
+                            alt="Ticket info screenshot">
+                    </div>
+                    <div class="feature-text">
+                        <h3>ACCESSING VERIFIED TICKET INFORMATION</h3>
+                        <p>After uploading the QR code, he can instantly verify the ticket and access all booking
+                            details in one place. The dashboard displays event information, schedule, and venue
+                            details,
+                            allowing the user to confirm registration with confidence. The verified ticket can also
+                            be
+                            downloaded for easy access on the event day.</p>
+                    </div>
+                </div>
+
+                <div class="feature-row reverse">
+                    <div class="feature-image">
+                        <img src="https://api.builder.io/api/v1/image/assets/TEMP/d87723b2778f12ca41d1d9f3954ce43eb2fc3ee5?width=1106"
+                            alt="Venue list screenshot">
+                    </div>
+                    <div class="feature-text">
+                        <h3>EXPLORING EVENT SPACES</h3>
+                        <p>As an event organizer, the user can browse available venues and review key details such
+                            as
+                            capacity, facilities, and location. Access to comprehensive venue information helps in
+                            comparing options and selecting the most suitable space for the event.</p>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-image">
+                        <img src="https://api.builder.io/api/v1/image/assets/TEMP/f12ac4dd50440c8839fb09aae6447e63ea59d841?width=1118"
+                            alt="Venue inquiry form screenshot">
+                    </div>
+                    <div class="feature-text">
+                        <h3>STREAMLINED VENUE INQUIRY</h3>
+                        <p>The event organizer submits a venue inquiry form with event requirements and contact
+                            details.
+                            This allows the platform to provide tailored information, availability, and pricing for
+                            the
+                            selected venue.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KEY LEARNING -->
+            <section class="key-learning">
+                <div>
+                    <h2>KEY LEARNING</h2>
+                </div>
+                <div>
+                    <p>Through this project, I learned that users value simplicity, transparency, and security when
+                        purchasing event tickets. Clear information architecture, streamlined booking flows, and secure
+                        verification processes play a crucial role in improving user confidence and overall experience.
+                    </p>
+                </div>
+            </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <span class="footer-title">CONTACT</span>
+                <p class="footer-copyright">
+                    Copyright © 2026 Design with Chan
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/chan-mya-mya-khin" target="_blank" rel="noopener noreferrer"
+                    class="footer-link">
+                    LinkedIn
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path
+                            d="M21 -1.89661e-06C21 -0.552286 20.5523 -1 20 -1L11 -1C10.4477 -1 10 -0.552286 10 -1.3487e-06C10 0.552283 10.4477 0.999998 11 0.999999L19 0.999998L19 9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9L21 -1.89661e-06ZM0 20L0.707107 20.7071L20.7071 0.707105L20 -1.3487e-06L19.2929 -0.707108L-0.707107 19.2929L0 20Z"
+                            fill="white" />
+                    </svg>
+                </a>
+
+                <a href="https://www.behance.net/chanmyamyakhin" target="_blank" rel="noopener noreferrer"
+                    class="footer-link">
+                    Behance
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path
+                            d="M21 -1.89661e-06C21 -0.552286 20.5523 -1 20 -1L11 -1C10.4477 -1 10 -0.552286 10 -1.3487e-06C10 0.552283 10.4477 0.999998 11 0.999999L19 0.999998L19 9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9L21 -1.89661e-06ZM0 20L0.707107 20.7071L20.7071 0.707105L20 -1.3487e-06L19.2929 -0.707108L-0.707107 19.2929L0 20Z"
+                            fill="white" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
