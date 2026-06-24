@@ -19,6 +19,7 @@
 }
 
 .letter {
+  pointer-events: none;
   /* display: flex; */
   display: inline-block;
   flex-direction: column;
@@ -43,6 +44,7 @@
   letter-spacing: 0.01em;
   margin: 0;
   display: block;
+  pointer-events: auto;
 }
 
 .letter p {
@@ -50,6 +52,7 @@
   font-weight: 700;
   margin-top: 8px;
   text-align: center;
+  pointer-events: auto;
 }
 
 .c {
@@ -69,6 +72,10 @@
 }
 
 .hero:has(.letter:hover) .letter {
+  transform: translateY(0);
+}
+
+.letter:hover {
   transform: translateY(0);
 }
 
