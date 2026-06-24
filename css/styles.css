@@ -19,7 +19,8 @@
 }
 
 .letter {
-  display: flex;
+  /* display: flex; */
+  display: inline-block;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -28,6 +29,9 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+    cursor: pointer;
+    width: auto;  /* Only as wide as the content */
+    padding: 0;   /* Remove any padding */
 }
 
 .letter h1 {
@@ -38,6 +42,7 @@
   line-height: 0.85;
   letter-spacing: 0.01em;
   margin: 0;
+  display: block;
 }
 
 .letter p {

@@ -27,8 +27,15 @@
     <meta http-equiv="Expires" content="0">
 	
 	<style data-framer-font-css>/* latin-ext */
+  
+    .framer-JTMTF .framer-1b4grkl {
+        padding: 0 311px !important;
+    }
+    .framer-18xmgsc {
+        left: 371px !important;
+    }
 
-    [data-framer-background-image-wrapper] img,
+    /* [data-framer-background-image-wrapper] img,
     .framer-z6l1f4 img,
     img[style*="object-fit: contain"] {
         object-fit: cover !important;
@@ -58,6 +65,51 @@
         .framer-10dw70x {
             padding: 15px 10px !important;
         }
+    } */
+
+    /* Fix User Research section alignment */
+    .framer-1i8aufv {
+        padding-left: 60px !important;  
+        padding-right: 60px !important;
+        width: 100% !important;
+        max-width: 1280px !important;
+        margin: 0 auto !important;
+        gap: 40px !important;
+    }
+    
+    /* Fix User Persona section alignment */
+    .framer-143iu1a {
+        padding-left: 60px !important;
+        padding-right: 60px !important;
+        width: 100% !important;
+        max-width: 1280px !important;
+        margin: 0 auto !important;
+        gap: 40px !important;
+    }
+    
+    /* Make sure both sections have same left edge */
+    .framer-1i8aufv .framer-18o31f,
+    .framer-143iu1a .framer-1b6l0gc {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+    
+    /* Fix the text content alignment */
+    .framer-1i8aufv .framer-l647fl,
+    .framer-143iu1a .framer-hxd8ay {
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+    }
+    
+    /* Ensure consistent width for both sections */
+    .framer-143iu1a .framer-3sbqvq {
+        width: 560px !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .framer-143iu1a .framer-hxd8ay {
+        width: 560px !important;
+        flex-shrink: 0 !important;
     }
 
 @font-face {
@@ -135,7 +187,7 @@
 	
 	<div class="framer-j4ugry" data-framer-name="Bottom" style="mask:linear-gradient(180deg, rgba(0,0,0,0) 65%, rgba(0,0,0,1) 100%) add;-webkit-mask:linear-gradient(180deg, rgba(0,0,0,0) 65%, rgba(0,0,0,1) 100%) add;border-bottom-left-radius:11px;border-bottom-right-radius:11px;border-top-left-radius:11px;border-top-right-radius:11px;box-shadow:inset 0px 0px 0px 1px rgb(0, 0, 0);opacity:0.06"></div><div class="framer-jnuwbw" data-framer-name="Border" style="border-bottom-left-radius:11px;border-bottom-right-radius:11px;border-top-left-radius:11px;border-top-right-radius:11px;box-shadow:inset 0px 0px 0px 1px rgb(0, 0, 0);opacity:0.04"></div></a><!--/$--><!--/$--><!--/$--></div>
 	<script data-framer-appear-animation="no-preference"></script>
-  <script>
+  <!-- <script>
     function handleResize() {
         // Wait for elements to exist
         const main = document.getElementById("main");
@@ -196,7 +248,7 @@
     window.addEventListener("orientationchange", function() {
         setTimeout(handleResize, 300);
     });
-  </script>
+  </script> -->
   <script>
     function fixFooterLinks() {
         // Fix LinkedIn link
