@@ -2,22 +2,29 @@
 <html dir="ltr">
 <head>
 	<base href="">
-	<script src="js/rerouter.js"></script>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=1280">
-	<meta name="generator" content="Framer d1bc2d2">
-	<title>Event Ticket System - Case Study</title>
+    <script src="js/rerouter.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1280">
+    <meta name="generator" content="Framer d1bc2d2">
+    
+    <!-- TITLE -->
+    <title>Event Ticket System - Case Study</title>
+    
+    <!-- META TAGS -->
     <meta property="og:title" content="Event Ticket System - Case Study">
     <meta name="twitter:title" content="Event Ticket System - Case Study">
     <meta property="og:description" content="UX/UI Case Study for Event Ticket System">
     <meta name="description" content="UX/UI Case Study for Event Ticket System">
     <meta name="twitter:description" content="UX/UI Case Study for Event Ticket System">
-    <meta name="framer-search-index" content="js/searchindex-4njdeu09uvgc.json">
-    <meta name="framer-search-index-fallback" content="js/searchindex-mml8l2eprrlw.json">
-    <link href="images/default-favicon-light.v1.png" rel="icon" media="(prefers-color-scheme: light)">
-    <link href="images/default-favicon-dark.v1.png" rel="icon" media="(prefers-color-scheme: dark)">
-    <!-- <link rel="apple-touch-icon" href="assets/images/app-icon.png"> -->
-    <link rel="apple-touch-icon" href="assets/images/app-icon.png?v=2">
+    
+    <!-- FAVICON & APPLE TOUCH ICON with cache-busting -->
+    <link rel="apple-touch-icon" href="images/app-icon.png">
+    <link rel="icon" href="images/app-icon.png">
+    
+    <!-- Force no cache for icons -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 	
 	<style data-framer-font-css>/* latin-ext */
 
@@ -233,6 +240,93 @@
         setTimeout(fixFooterLinks, 100);
     });
     observer.observe(document.body, { childList: true, subtree: true });
+</script>
+<script>
+    (function() {
+        // ===== TITLE FIX =====
+        const CORRECT_TITLE = "Event Ticket System - Case Study";
+        
+        function forceTitle() {
+            if (document.title !== CORRECT_TITLE) {
+                document.title = CORRECT_TITLE;
+                console.log("Title fixed:", document.title);
+            }
+            
+            // Also fix title element
+            const titleEl = document.querySelector('title');
+            if (titleEl && titleEl.textContent !== CORRECT_TITLE) {
+                titleEl.textContent = CORRECT_TITLE;
+            }
+        }
+        
+        // Run immediately
+        forceTitle();
+        
+        // Run on DOM ready
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", function() {
+                setTimeout(forceTitle, 50);
+            });
+        }
+        
+        // Run on full load
+        window.addEventListener("load", function() {
+            setTimeout(forceTitle, 100);
+            setTimeout(forceTitle, 300);
+            setTimeout(forceTitle, 600);
+            setTimeout(forceTitle, 1000);
+            setTimeout(forceTitle, 2000);
+        });
+        
+        // Keep checking every second
+        setInterval(forceTitle, 1000);
+        
+        // Watch for title changes
+        const titleObserver = new MutationObserver(function() {
+            if (document.title !== CORRECT_TITLE) {
+                document.title = CORRECT_TITLE;
+            }
+        });
+        titleObserver.observe(document.head, { childList: true, subtree: true, characterData: true });
+        
+        // Also watch the title element directly
+        const titleElement = document.querySelector('title');
+        if (titleElement) {
+            const titleElObserver = new MutationObserver(function() {
+                if (titleElement.textContent !== CORRECT_TITLE) {
+                    titleElement.textContent = CORRECT_TITLE;
+                }
+            });
+            titleElObserver.observe(titleElement, { childList: true, characterData: true });
+        }
+        
+        // ===== ICON FIX =====
+        function forceIcon() {
+            const timestamp = Date.now();
+            const iconLinks = document.querySelectorAll('link[rel="apple-touch-icon"], link[rel="icon"]');
+            
+            iconLinks.forEach(link => {
+                // Check if it's our custom icon
+                if (link.href && link.href.includes('assets/images/app-icon.png')) {
+                    // Remove existing cache buster and add new one
+                    const baseUrl = link.href.split('?')[0];
+                    link.href = baseUrl + '?v=' + timestamp;
+                    console.log('Icon updated:', link.href);
+                }
+            });
+        }
+        
+        // Run icon fix
+        forceIcon();
+        
+        // Also fix on load
+        window.addEventListener('load', function() {
+            setTimeout(forceIcon, 200);
+            setTimeout(forceIcon, 500);
+        });
+        
+        console.log('Title and icon protection activated');
+    })();
 </script>
 	<script>typeof document<"u"&&(window.process={...window.process,env:{...window.process?.env,NODE_ENV:"production"}});</script>
 	<link rel="modulepreload" fetchpriority="low" href="js/react.dxz2gj9b.mjs"><link rel="modulepreload" fetchpriority="low" href="js/rolldown-runtime.c4p97uce.mjs"><link rel="modulepreload" fetchpriority="low" href="js/framer.7dlpzrdb.mjs"><link rel="modulepreload" fetchpriority="low" href="js/motion.dzjbdnt3.mjs"><link rel="modulepreload" fetchpriority="low" href="js/asnhxuq_1nce3jqsq_hsvhegzhn2w-ktazmbekhogle.cqlonirl.mjs"><link rel="modulepreload" fetchpriority="low" href="js/txivpi8yv.chekx8lt.mjs"><link rel="modulepreload" fetchpriority="low" href="js/shared-lib.cnhftmyw.mjs"><script type="module" async data-framer-bundle="main" fetchpriority="low" src="js/script_main.cj85lqkc.mjs"></script><div id="svg-templates" style="position: absolute; overflow: hidden; bottom: 0; left: 0; width: 0; height: 0; z-index: 0; contain: strict" aria-hidden="true">
