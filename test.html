@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Ticketing System - Case Study</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,900;1,9..40,400&family=Figtree:wght@400;600;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, Roboto, Helvetica, sans-serif;
+            color: #030812;
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            user-select: none;
+            -webkit-user-drag: none;
+            pointer-events: auto;
+        }
+
+        /* Hero Image */
+        .hero {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .hero img {
+            width: 100%;
+            object-fit: fill;
+            max-height: 630px;
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 40px 40px;
+                gap: 60px;
+            }
+        }
+
+        /* Section Styles */
+        .section-two-col {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        @media (min-width: 1024px) {
+            .section-two-col {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 40px;
+            }
+        }
+
+        .section-two-col>div:first-child {
+            flex: 0 0 auto;
+            min-width: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .section-two-col>div:first-child {
+                width: 47%;
+            }
+        }
+
+        .section-two-col>div:last-child {
+            flex: 1;
+            min-width: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .section-two-col>div:last-child {
+                width: 48%;
+            }
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: #000000;
+            margin-bottom: 0;
+        }
+
+        @media (min-width: 640px) {
+            h2 {
+                font-size: 30px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            h2 {
+                font-size: 32px;
+            }
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        @media (min-width: 640px) {
+            h3 {
+                font-size: 22px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            h3 {
+                font-size: 32px;
+            }
+        }
+
+        p,
+        ul {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+        }
+
+        @media (min-width: 640px) {
+            p,
+            ul {
+                font-size: 18px;
+            }
+        }
+
+        ul {
+            list-style: disc;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Full Width Section */
+        .section-full {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .section-half {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+        }
+
+        /* Color Palette Section */
+        .color-swatches {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        @media (min-width: 640px) {
+            .color-swatches {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .color-swatches {
+                grid-template-columns: repeat(2, 1fr);
+                width: 420px;
+                flex-shrink: 0;
+            }
+        }
+
+        .color-swatch {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .color-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (min-width: 640px) {
+            .color-circle {
+                width: 96px;
+                height: 96px;
+            }
+        }
+
+        .color-label {
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .color-descriptions {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            flex: 1;
+        }
+
+        .color-desc {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            white-space: pre-line;
+        }
+
+        /* Typography Section */
+        .typography-section {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .typography-left {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .figtree-title {
+            font-family: 'Figtree', sans-serif;
+            font-weight: 900;
+            color: #000000;
+            line-height: 1;
+            font-size: clamp(48px, 8vw, 100px);
+        }
+
+        .typography-samples {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .sample-letter {
+            font-family: 'Figtree', sans-serif;
+            font-size: clamp(32px, 5vw, 50px);
+            font-weight: 400;
+            color: #000000;
+            text-align: center;
+            line-height: 1;
+            min-width: 60px;
+        }
+
+        .sample-letter.bold { font-weight: 700; }
+        .sample-letter.semi-bold { font-weight: 600; }
+
+        .sample-label {
+            font-family: 'Figtree', sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            color: #000000;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .sample-size {
+            font-family: 'Figtree', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #000000;
+            white-space: nowrap;
+        }
+
+        .sample-size.bold { font-weight: 700; }
+        .sample-label.bold { font-weight: 700; }
+        .sample-label.semi-bold { font-weight: 600; }
+
+        /* Feature Sections */
+        .features-container {
+            display: flex;
+            flex-direction: column;
+            gap: 56px;
+        }
+
+        .feature-row {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .feature-row {
+                flex-direction: row;
+                gap: 48px;
+            }
+        }
+
+        .feature-row.reverse {
+            flex-direction: column;
+        }
+
+        @media (min-width: 1024px) {
+            .feature-row.reverse {
+                flex-direction: row-reverse;
+            }
+            .typography-section {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 40px;
+            }
+            .typography-left { width: 47%; }
+            .typography-right { width: 48%; padding-top: 0; }
+        }
+
+        .feature-image {
+            flex-shrink: 0;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .feature-image img {
+            width: 70%;
+            height: auto;
+        }
+
+        .feature-text {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @media (min-width: 1024px) {
+            .feature-text { width: 50%; }
+        }
+
+        /* Pain Points Table */
+        .pain-points {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pain-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #000000;
+        }
+
+        .pain-header div {
+            flex: 1;
+            font-size: 18px;
+            font-weight: 500;
+            color: #000000;
+        }
+
+        .pain-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px 0;
+            border-bottom: 1px solid #000000;
+        }
+
+        .pain-row p {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #000000;
+            margin: 0;
+        }
+
+        /* User Persona */
+        .persona-card {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .persona-image {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            max-width: 358px;
+        }
+
+        .persona-image img {
+            width: 75%;
+            height: 80%;
+            border-radius: 4px;
+        }
+
+        .persona-name {
+            font-size: 24px;
+            font-weight: 500;
+            color: #000000;
+            text-align: center;
+            width: 100%;
+        }
+
+        .persona-quote {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+        }
+
+        /* ==========================================================================
+           CORRECTED PIXEL-PERFECT DIAGRAM ENGINE (MATCHING VISUALS EXACTLY)
+           ========================================================================== */
+        
+        .diagram-outer-scroller {
+            width: 100%;
+            overflow-x: auto;
+            background: #ffffff;
+            padding: 30px 10px;
+        }
+
+        .canvas-container {
+            width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            user-select: text;
+        }
+
+        /* Node Text Boxes Base styling */
+        .node-box-element {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'DM Sans', sans-serif;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            z-index: 5;
+            position: relative;
+        }
+
+        .node-primary {
+            background-color: #1d63b8;
+            color: #ffffff;
+        }
+
+        .node-secondary {
+            background-color: #bfe3f7;
+            color: #0f3566;
+            font-weight: 600;
+        }
+
+        /* SVG Line Engine rules styling */
+        .vector-overlay-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .vector-overlay-canvas path,
+        .vector-overlay-canvas line {
+            stroke: #18447e;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .vector-overlay-canvas .dashed-link {
+            stroke-dasharray: 5 5;
+        }
+
+        /* User Flow Decision Block Frame */
+        .diamond-flow-container {
+            width: 90px;
+            height: 90px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .diamond-shape-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #1d63b8;
+            transform: rotate(45deg);
+            border-radius: 4px;
+            z-index: 1;
+        }
+
+        .diamond-text {
+            position: relative;
+            z-index: 2;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* Terminal Circles */
+        .terminal-circle-node {
+            width: 50px;
+            height: 50px;
+            background-color: #071739;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 11px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            position: relative;
+            z-index: 5;
+            letter-spacing: 0.5px;
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: #071739;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 999px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(7, 23, 57, 0.2);
+        }
+
+        .back-button:hover {
+            background: #103263;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hero Image -->
+    <div class="hero">
+        <a href="http://chanmyamyakhin.website/" class="back-button">← Back</a>
+        <img src="assets/images/banner.png" alt="Event Ticketing System Case Study">
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- PROJECT OVERVIEW -->
+        <section class="section-two-col">
+            <div><h2>PROJECT OVERVIEW</h2></div>
+            <div>
+                <p>The Event Ticketing System is a platform that helps users discover, compare, and book events with
+                    confidence. Users can browse events, compare prices, read reviews, and purchase tickets in one
+                    place. Additionally, business owners can explore venues and send quotations directly without hosting
+                    events. The platform bridges the gap between users and venue providers, creating a more efficient
+                    and affordable event planning experience.</p>
+            </div>
+        </section>
+
+        <!-- Framing the Problem -->
+        <section class="section-two-col">
+            <div><h2>FRAMING THE EVENT BOOKING EXPERIENCE CHALLENGES</h2></div>
+            <div>
+                <p>Users often struggle to discover and compare suitable events, leading to a less confident and
+                    inefficient booking experience. For business owners, venue discovery is fragmented, making it
+                    difficult to find relevant venues and express interest effectively. As a result, communication
+                    between users and venue providers can become delayed, affecting the overall efficiency of the
+                    booking process.</p>
+            </div>
+        </section>
+
+        <!-- PROJECT GOALS -->
+        <section class="section-two-col">
+            <div><h2>PROJECT GOALS</h2></div>
+            <div>
+                <ul>
+                    <li>Design a unified event ticketing platform for event discovery, comparison, and booking</li>
+                    <li>Improve user experience by reducing friction in finding and booking events</li>
+                    <li>Enable users to confidently compare events using clear and centralized information</li>
+                    <li>Simplify venue discovery and quotation requests for business owners and organizers</li>
+                    <li>Improve communication between users, businesses, and venue providers</li>
+                    <li>Create a connected ecosystem that streamlines the end-to-end event booking process</li>
+                    <li>Increase efficiency, transparency, and accessibility across the platform</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- COMPETITIVE ANALYSIS -->
+        <section class="section-full">
+            <h2>COMPETITIVE ANALYSIS</h2>
+            <section class="section-half">
+                <img src="assets/images/design/competitive-analysis.png" alt="Competitive Analysis">
+            </section>
+        </section>
+
+        <!-- USER RESEARCH -->
+        <section class="section-two-col">
+            <div><h2>USER RESEARCH</h2></div>
+            <div>
+                <ul>
+                    <li>Users struggle with scattered event information and poor discoverability</li>
+                    <li>Comparing events is difficult, leading to low booking confidence</li>
+                    <li>Users prefer a centralized platform with clear filtering and comparison</li>
+                    <li>Venue discovery and communication for businesses is slow and fragmented</li>
+                    <li>Users expect a simple, fast booking flow with clear pricing and confirmation</li>
+                    <li>Lack of transparency reduces trust in existing event platforms</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- USER PERSONA -->
+        <section class="section-two-col">
+            <div class="persona-card">
+                <h2>USER PERSONA</h2>
+                <div class="persona-image">
+                    <img src="assets/images/design/user.png" alt="Photo of James">
+                    <div class="persona-name">James</div>
+                </div>
+                <p class="persona-quote">"I miss out on events because my busy schedule <br> makes it hard to find and book good tickets in time."</p>
+            </div>
+
+            <div class="pain-points">
+                <div class="pain-header">
+                    <div>PAIN POINTS</div>
+                    <div>WALKAROUNDS</div>
+                </div>
+                <div class="pain-row">
+                    <p>Time-Consuming Ticket Searches: Manually comparing multiple websites to find available events that fit his busy schedule is exhausting.</p>
+                    <p>He often skips searching and misses out on events or settles for less-than-ideal options to save time.</p>
+                </div>
+                <div class="pain-row">
+                    <p>Complex Checkout Processes: Long, multi-step forms and unstable websites make the purchase process feel tedious and risky.</p>
+                    <p>He abandons his cart immediately if the website is too complicated or experiences technical glitches during purchase.</p>
+                </div>
+                <div class="pain-row">
+                    <p>Hidden Fees: Extra service or convenience fees that appear only at the final checkout stage cause significant frustration and distrust.</p>
+                    <p>He actively avoids platforms that hide costs and prefers services that provide transparent, "all-in" pricing upfront.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- INFORMATION ARCHITECTURE (DIAGRAM REPLACEMENT FOR image_72d9a5.png) -->
+        <section class="section-full">
+            <h2>INFORMATION ARCHITECTURE</h2>
+            <div class="diagram-outer-scroller">
+                <div class="canvas-container" style="height: 480px; width: 1050px;">
+                    
+                    <svg class="vector-overlay-canvas">
+                        <defs>
+                            <marker id="ia-arrow-right" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#18447e" />
+                            </marker>
+                        </defs>
+                        <!-- Horizontal connector from Home to Menu -->
+                        <path d="M 150,55 L 515,55" marker-end="url(#ia-arrow-right)" />
+                        
+                        <!-- Left tree side branches dropping down from Home -->
+                        <path d="M 95,75 L 95,370" />
+                        <path d="M 95,145 L 140,145" />
+                        <path d="M 95,240 L 140,240" />
+                        <path d="M 95,335 L 140,335" />
+                        
+                        <!-- Main Top horizontal bar connecting Menu columns -->
+                        <path d="M 370,120 L 965,120" />
+                        <!-- Verticals from main bar down to category nodes -->
+                        <path d="M 370,120 L 370,140" />
+                        <path d="M 570,120 L 570,140" />
+                        <path d="M 765,120 L 765,140" />
+                        <path d="M 965,120 L 965,140" />
+
+                        <!-- Menu trunk down drop to bar line -->
+                        <path d="M 570,75 L 570,120" />
+
+                        <!-- Sub category lines under Event column -->
+                        <path d="M 370,180 L 370,410" />
+                        <path d="M 370,240 L 410,240" />
+                        <path d="M 370,325 L 410,325" />
+                        <path d="M 370,410 L 410,410" />
+
+                        <!-- Sub category lines under Venue column -->
+                        <path d="M 570,180 L 570,325" />
+                        <path d="M 570,240 L 610,240" />
+                        <path d="M 570,325 L 610,325" />
+                    </svg>
+
+                    <!-- Row 1: Root Header Blocks -->
+                    <div class="node-box-element node-primary" style="position: absolute; top: 35px; left: 40px; width: 110px; height: 40px;">Home</div>
+                    <div class="node-box-element node-primary" style="position: absolute; top: 35px; left: 515px; width: 110px; height: 40px;">Menu</div>
+
+                    <!-- Left side list underneath Home -->
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 125px; left: 140px; width: 150px; height: 40px; justify-content: flex-start; padding-left: 12px;">Trending Event</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 210px; left: 140px; width: 180px; height: 60px; text-align: left; justify-content: flex-start; padding-left: 12px;">Website User Progress</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 315px; left: 140px; width: 150px; height: 40px; justify-content: flex-start; padding-left: 12px;">Contact Us</div>
+
+                    <!-- Row 2: Menu Columns Headers -->
+                    <div class="node-box-element node-primary" style="position: absolute; top: 140px; left: 295px; width: 150px; height: 40px;">Event</div>
+                    <div class="node-box-element node-primary" style="position: absolute; top: 140px; left: 495px; width: 150px; height: 40px;">Venue</div>
+                    <div class="node-box-element node-primary" style="position: absolute; top: 140px; left: 690px; width: 150px; height: 40px;">Search</div>
+                    <div class="node-box-element node-primary" style="position: absolute; top: 140px; left: 890px; width: 150px; height: 40px;">Check QR</div>
+
+                    <!-- Column sub-blocks: Event entries -->
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 220px; left: 410px; width: 150px; height: 40px; justify-content: flex-start; padding-left: 12px;">All Events</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 305px; left: 410px; width: 150px; height: 40px; justify-content: flex-start; padding-left: 12px;">Trending Events</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 390px; left: 410px; width: 150px; height: 40px; justify-content: flex-start; padding-left: 12px;">Contact Us</div>
+
+                    <!-- Column sub-blocks: Venue entries -->
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 220px; left: 610px; width: 150px; height: 40px; justify-content: flex-start; padding-left: 12px;">All Venue</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 305px; left: 610px; width: 150px; height: 40px; justify-content: flex-start; padding-left: 12px;">Contact US</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- USER FLOW (DIAGRAM REPLACEMENT FOR image_72d9c4.png) -->
+        <section class="section-full">
+            <h2>USER FLOW</h2>
+            <div class="diagram-outer-scroller">
+                <div class="canvas-container" style="height: 1040px; width: 1050px;">
+                    
+                    <svg class="vector-overlay-canvas">
+                        <defs>
+                            <marker id="uf-arrow-down" viewBox="0 0 10 10" refX="5" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+                                <path d="M 1.5 0 L 5 6 L 8.5 0 z" fill="#18447e" />
+                            </marker>
+                            <marker id="uf-arrow-right" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                <path d="M 0 1.5 L 7 5 L 0 8.5 z" fill="#18447e" />
+                            </marker>
+                        </defs>
+                        <!-- Start to Home Screen -->
+                        <path d="M 525,50 L 525,75" marker-end="url(#uf-arrow-down)" />
+
+                        <!-- Horizontal routing branch under Home Screen -->
+                        <path d="M 525,115 L 525,145 L 140,145 L 140,175" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 400,145 L 400,175" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 650,145 L 650,175" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 900,145 L 900,175" marker-end="url(#uf-arrow-down)" />
+
+                        <!-- Column 1: Event flow splits and steps -->
+                        <path d="M 140,215 L 140,235 L 75,235 L 75,255" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 140,215 L 140,235 L 205,235 L 205,255" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 75,295 L 75,315 L 140,315 M 205,295 L 205,315 L 140,315" class="dashed-link" />
+                        <path d="M 140,315 L 140,345" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 140,385 L 140,415" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 140,455 L 140,485" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 140,525 L 140,555" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 140,595 L 140,625" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 140,665 L 140,710" marker-end="url(#uf-arrow-down)" />
+
+                        <!-- Branch out lines of Verify Code Diamond block -->
+                        <path d="M 185,755 L 285,755" class="dashed-link" marker-end="url(#uf-arrow-right)" />
+                        <path d="M 140,800 L 140,845" marker-end="url(#uf-arrow-down)" />
+                        <text x="210" y="745" font-size="13" font-weight="bold" fill="#18447e">No</text>
+                        <text x="152" y="822" font-size="13" font-weight="bold" fill="#18447e">Yes</text>
+
+                        <!-- Column 2: Venue tracking links -->
+                        <path d="M 345,195 L 320,195 L 320,255" class="dashed-link" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 400,215 L 400,255" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 400,295 L 400,345" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 400,385 L 400,425" marker-end="url(#uf-arrow-down)" />
+
+                        <!-- Column 3: Check QR links -->
+                        <path d="M 650,215 L 650,255" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 650,295 L 650,345" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 650,385 L 650,425" marker-end="url(#uf-arrow-down)" />
+
+                        <!-- Column 4: Search tracking links -->
+                        <path d="M 900,215 L 900,255" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 900,295 L 900,345" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 900,385 L 900,425" marker-end="url(#uf-arrow-down)" />
+
+                        <!-- Convergence tracking down lines back to END node base line -->
+                        <path d="M 140,885 L 140,935 L 490,935" marker-end="url(#uf-arrow-right)" />
+                        <path d="M 400,465 L 400,645 L 515,645 L 515,915" marker-end="url(#uf-arrow-down)" />
+                        <path d="M 650,465 L 650,935 L 560,935" marker-end="url(#uf-arrow-right)" />
+                        <path d="M 900,465 L 900,935 L 560,935" />
+                        <path d="M 525,935 L 525,960" marker-end="url(#uf-arrow-down)" />
+                    </svg>
+
+                    <!-- Terminal Root Headers elements -->
+                    <div class="terminal-circle-node" style="position: absolute; top: 0; left: 500px;">START</div>
+                    <div class="node-box-element node-primary" style="position: absolute; top: 75px; left: 440px; width: 170px; height: 40px;">Home Screen</div>
+
+                    <!-- Column Headers Grouping block -->
+                    <div class="node-box-element node-primary" style="position: absolute; top: 175px; left: 45px; width: 190px; height: 40px;">Event</div>
+                    <div class="node-box-element node-primary" style="position: absolute; top: 175px; left: 305px; width: 190px; height: 40px;">Venue</div>
+                    <div class="node-box-element node-primary" style="position: absolute; top: 175px; left: 555px; width: 190px; height: 40px;">Check QR</div>
+                    <div class="node-box-element node-primary" style="position: absolute; top: 175px; left: 805px; width: 190px; height: 40px;">Search</div>
+
+                    <!-- TRACK COLUMN 1: Event Layout Nodes -->
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 255px; left: 20px; width: 85px; height: 40px; font-size: 11px;">All Event</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 255px; left: 115px; width: 110px; height: 40px; font-size: 11px;">Trending Event</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 345px; left: 45px; width: 190px; height: 40px;">User View Detail</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 415px; left: 45px; width: 190px; height: 40px;">User View Event Detail</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 485px; left: 45px; width: 190px; height: 40px; font-size: 12px;">User Click on "Get Ticket" Button</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 555px; left: 45px; width: 190px; height: 40px;">User Fill Out Information</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 625px; left: 45px; width: 190px; height: 40px;">User Click on "Confirm" Button</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 695px; left: 43px; width: 194px; height: 40px; font-size: 11px;">User Wait For The Email OTP Code...</div>
+                    
+                    <div class="diamond-flow-container" style="position: absolute; top: 710px; left: 95px;">
+                        <div class="diamond-shape-bg"></div>
+                        <div class="diamond-text">Verify<br>Code</div>
+                    </div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 735px; left: 285px; width: 100px; height: 40px;">Resend Code</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 845px; left: 45px; width: 190px; height: 40px;">User Click on "Verify" Button</div>
+
+                    <!-- TRACK COLUMN 2: Venue Layout Nodes -->
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 255px; left: 305px; width: 190px; height: 40px;">User Click on View Detail</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 345px; left: 305px; width: 190px; height: 40px;">User Fill Out Information</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 425px; left: 305px; width: 190px; height: 40px; font-size: 13px;">User Click on "Submit" Button</div>
+
+                    <!-- TRACK COLUMN 3: Check QR Layout Nodes -->
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 255px; left: 555px; width: 190px; height: 40px;">Upload QR Code</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 345px; left: 555px; width: 190px; height: 40px;">User View Ticket</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 425px; left: 555px; width: 190px; height: 40px;">User Downloads Ticket</div>
+
+                    <!-- TRACK COLUMN 4: Search Layout Nodes -->
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 255px; left: 805px; width: 190px; height: 40px;">Search Event</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 345px; left: 805px; width: 190px; height: 40px;">Select Date and Price</div>
+                    <div class="node-box-element node-secondary" style="position: absolute; top: 425px; left: 805px; width: 190px; height: 40px;">User Click on Search Button</div>
+
+                    <!-- Terminal Endpoint Destination Anchor -->
+                    <div class="terminal-circle-node" style="position: absolute; top: 960px; left: 500px;">END</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COLOR PALETTE -->
+        <section class="section-full">
+            <h2>COLOR PALETTE</h2>
+            <div class="section-two-col">
+                <div>
+                    <div class="color-swatches">
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #071739;"></div>
+                            <span class="color-label" style="color: #071739;">#080739</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #103263;"></div>
+                            <span class="color-label" style="color: #103263;">#103263</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #030812;"></div>
+                            <span class="color-label" style="color: #030812;">#030812</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #FAFAFA; border: 2px solid #000;"></div>
+                            <span class="color-label" style="color: #030812;">#FAFAFA</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #FF4D4D;"></div>
+                            <span class="color-label" style="color: #FF4D4D;">#FF4D4D</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #898989;"></div>
+                            <span class="color-label" style="color: #898989;">#898989</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #C0C0C0;"></div>
+                            <span class="color-label" style="color: #C0C0C0;">#C0C0C0</span>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-circle" style="background-color: #6F6C8F;"></div>
+                            <span class="color-label" style="color: #6F6C8F;">#D9D9D9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="color-descriptions">
+                    <div class="color-desc">Primary (#080739): Dark navy blue for trust, security, and professional feel in ticket purchasing. Secondary (#103263): Bright blue for interactive elements and visual hierarchy.</div>
+                    <div class="color-desc">Text (#030812, #FAFAFA): High-contrast dark and white for readability across backgrounds</div>
+                    <div class="color-desc">Error (#FF4D4D): Red for warnings and errors to ensure quick user attention.</div>
+                    <div class="color-desc">Neutral Gray (#D9D9D9 / #898989 / #C0C0C0): Used for secondary UI elements, placeholders, borders, and disabled states to support hierarchy</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TYPOGRAPHY -->
+        <section class="typography-section">
+            <div class="typography-left"><h2>TYPOGRAPHY</h2></div>
+            <div class="typography-right"></div>
+        </section>
+
+        <div class="section-two-col">
+            <div>
+                <div class="figtree-title" style="margin-bottom:24px;">Figtree</div>
+                <div class="typography-samples">
+                    <div style="display: flex; justify-content: flex-start; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px; width: 220px;">
+                            <div class="sample-letter bold">Aa</div>
+                            <span class="sample-label bold">Bold</span>
+                        </div>
+                        <span class="sample-size bold">Size: 40px</span>
+                    </div>
+                    <div style="display: flex; justify-content: flex-start; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px; width: 220px;">
+                            <div class="sample-letter semi-bold">Aa</div>
+                            <span class="sample-label semi-bold">Semi Bold</span>
+                        </div>
+                        <span class="sample-size">Size: 16px</span>
+                    </div>
+                    <div style="display: flex; justify-content: flex-start; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px; width: 220px;">
+                            <div class="sample-letter">Aa</div>
+                            <span class="sample-label">Regular</span>
+                        </div>
+                        <span class="sample-size">Size: 16px</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p>Figtree was chosen for its clean, modern look and high readability, ensuring clear event information and a consistent, professional UI across the system.</p>
+            </div>
+        </div>
+
+        <!-- GRID SYSTEM -->
+        <section class="section-full">
+            <h2>GRID SYSTEM</h2>
+            <span class="grid-info-text">Margin : 60 Px , Gutter : 20 Px</span>
+            <img src="assets/images/design/grid.png" alt="Grid System">
+        </section>
+
+        <!-- DESIGNING INTERACTIVE EXPERIENCE -->
+        <section class="section-full">
+            <h2>DESIGNING INTERACTIVE EXPERIENCE</h2>
+            <div class="features-container">
+                <div class="feature-row">
+                    <div class="feature-image">
+                        <img src="https://api.builder.io/api/v1/image/assets/TEMP/61bcdfe346fa04e6f06daf2a17185ef15050f5e7?width=1110" alt="Home page screenshot">
+                    </div>
+                    <div class="feature-text">
+                        <h3>DISCOVERING EXCITING EVENTS</h3>
+                        <p>When he enters the Event Ticket System, he can see featured events, popular venues, and important event information displayed on the Home Page. The system helps him quickly discover upcoming events and navigate to different sections to explore more details and book tickets.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
