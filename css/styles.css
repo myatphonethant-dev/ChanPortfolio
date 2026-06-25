@@ -108,9 +108,7 @@
   transform: translateY(0) !important;
 }
 
-.letter.letter-inactive {
-  /* Returns to each letter's individual offset */
-}
+.letter.letter-inactive {}
 
 .letter.c { transform: translateY(-80px); }
 .letter.h { transform: translateY(80px); }
