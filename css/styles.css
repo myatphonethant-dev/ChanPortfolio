@@ -19,8 +19,6 @@
 }
 
 .letter {
-  pointer-events: none;
-  /* display: flex; */
   display: inline-block;
   flex-direction: column;
   align-items: center;
@@ -30,9 +28,8 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-    cursor: pointer;
-    width: auto;  /* Only as wide as the content */
-    padding: 0;   /* Remove any padding */
+  width: auto;
+  padding: 0;
 }
 
 .letter h1 {
@@ -44,7 +41,6 @@
   letter-spacing: 0.01em;
   margin: 0;
   display: block;
-  pointer-events: auto;
 }
 
 .letter p {
@@ -52,6 +48,27 @@
   font-weight: 700;
   margin-top: 8px;
   text-align: center;
+}
+
+.letter {
+  pointer-events: none;
+}
+
+.letter h1 {
+  pointer-events: none;
+  line-height: 0.85;
+}
+
+.letter-glyph {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  display: inline-block;
+  pointer-events: auto;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.letter p {
   pointer-events: auto;
 }
 
@@ -71,12 +88,37 @@
   transform: translateY(80px);
 }
 
-.hero:has(.letter:hover) .letter {
+/* .hero:has(.letter:hover) .letter {
   transform: translateY(0);
 }
 
 .letter:hover {
   transform: translateY(0);
+} */
+
+.letter-glyph {
+  display: inline-block;
+  pointer-events: auto;
+  cursor: pointer;
+  line-height: 1;
+  width: fit-content;
+}
+
+.letter.letter-active {
+  transform: translateY(0) !important;
+}
+
+.letter.letter-inactive {
+  /* Returns to each letter's individual offset */
+}
+
+.letter.c { transform: translateY(-80px); }
+.letter.h { transform: translateY(80px); }
+.letter.a { transform: translateY(-80px); }
+.letter.n { transform: translateY(80px); }
+
+.letter.letter-active {
+  transform: translateY(0) !important;
 }
 
 @media (max-width: 768px) {

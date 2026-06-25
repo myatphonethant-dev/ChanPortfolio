@@ -23,22 +23,22 @@
         class="fixed-bg"></video>
 
       <div class="letter c">
-        <h1>C</h1>
+        <h1><span class="letter-glyph">C</span></h1>
         <p>UX/UI DESIGN</p>
       </div>
 
       <div class="letter h">
-        <h1>H</h1>
+        <h1><span class="letter-glyph">H</span></h1>
         <p>BACK-END DEVELOPER</p>
       </div>
 
       <div class="letter a">
-        <h1>A</h1>
+        <h1><span class="letter-glyph">A</span></h1>
         <p>BASED IN BANGKOK</p>
       </div>
 
       <div class="letter n">
-        <h1>N</h1>
+        <h1><span class="letter-glyph">N</span></h1>
         <p>FROM MYANMAR</p>
       </div>
     </section>
@@ -191,6 +191,117 @@
       if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', protectImages);
       else protectImages();
     })();
+  </script>
+  <script>
+    document.fonts.ready.then(function () {
+      var hero = document.querySelector('.hero');
+      var letters = Array.prototype.slice.call(document.querySelectorAll('.letter'));
+      var body = document.body;
+      var permanentEnabled = false;
+      var currentlyActive = false;
+      var glyphCanvases = new Map();
+
+      // ── Build canvas using actual rendered font from the browser ──
+      function buildCanvas(span) {
+        var rect = span.getBoundingClientRect();
+        var style = window.getComputedStyle(span);
+
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.ceil(rect.width) + 40;
+        canvas.height = Math.ceil(rect.height) + 40;
+        var ctx = canvas.getContext('2d');
+
+        // Use EXACT computed font string from browser — this is what actually rendered
+        ctx.font = style.font;
+        ctx.fillStyle = '#000000';
+        ctx.textBaseline = 'alphabetic';
+
+        var metrics = ctx.measureText(span.textContent.trim());
+        var ascent = metrics.actualBoundingBoxAscent || Math.ceil(rect.height * 0.8);
+
+        ctx.fillText(span.textContent.trim(), 0, ascent);
+
+        return { canvas: canvas, ctx: ctx };
+      }
+
+      function getCanvas(span) {
+        if (!glyphCanvases.has(span)) {
+          glyphCanvases.set(span, buildCanvas(span));
+        }
+        return glyphCanvases.get(span);
+      }
+
+      // ── Animate all letters in or out ──
+      function setAllActive(active) {
+        if (active === currentlyActive) return;
+        currentlyActive = active;
+        letters.forEach(function (l) {
+          // Force a reflow so removing+re-adding the class triggers transition
+          l.classList.remove('letter-active', 'letter-inactive');
+          void l.offsetWidth; // reflow
+          l.classList.add(active ? 'letter-active' : 'letter-inactive');
+        });
+      }
+
+      // ── Per-letter individual activation for switching between letters ──
+      function setLetterActive(targetLetter) {
+        letters.forEach(function (l) {
+          var shouldBeActive = (l === targetLetter);
+          if (shouldBeActive && !l.classList.contains('letter-active')) {
+            l.classList.remove('letter-inactive');
+            void l.offsetWidth;
+            l.classList.add('letter-active');
+          } else if (!shouldBeActive) {
+            // keep others at 0 (they already animated there from last all-active)
+          }
+        });
+      }
+
+      function enablePage() {
+        if (permanentEnabled) return;
+        body.classList.remove('page-loading');
+        body.classList.add('scroll-enabled', 'video-unlocked');
+        permanentEnabled = true;
+        var video = document.getElementById('hero-bg-video');
+        if (video) video.classList.add('visible');
+      }
+
+      function isOverInk(e) {
+        var el = document.elementFromPoint(e.clientX, e.clientY);
+        if (!el || !el.classList.contains('letter-glyph')) return null;
+
+        var span = el;
+        var rect = span.getBoundingClientRect();
+        var data = getCanvas(span);
+
+        var x = Math.round(e.clientX - rect.left);
+        var y = Math.round(e.clientY - rect.top);
+        x = Math.max(0, Math.min(x, data.canvas.width - 1));
+        y = Math.max(0, Math.min(y, data.canvas.height - 1));
+
+        var pixel = data.ctx.getImageData(x, y, 1, 1).data;
+        // Return the parent .letter element if over ink, else null
+        return pixel[3] > 30 ? span.closest('.letter') : null;
+      }
+
+      hero.addEventListener('mousemove', function (e) {
+        var inkLetter = isOverInk(e);
+        if (inkLetter) {
+          enablePage();
+          setAllActive(true);
+        } else {
+          setAllActive(false);
+        }
+      });
+
+      hero.addEventListener('mouseleave', function () {
+        setAllActive(false);
+      });
+
+      window.addEventListener('resize', function () {
+        glyphCanvases.clear();
+      });
+    });
   </script>
 </body>
 
