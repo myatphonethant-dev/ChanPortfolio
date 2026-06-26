@@ -7,7 +7,7 @@
   --arrow-gap: 6px;
 }
 
-/* Hero section layouts & animations */
+/* ── Hero ── */
 .hero {
   height: 100vh;
   display: flex;
@@ -18,20 +18,35 @@
   position: relative;
 }
 
+/* ── Letter base — no transition until JS adds transitions-ready ── */
 .letter {
   display: inline-block;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: transform .8s cubic-bezier(.76, 0, .24, 1);
+  transition: none;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   width: auto;
   padding: 0;
+  pointer-events: none;
 }
 
+body.transitions-ready .letter {
+  transition: transform .8s cubic-bezier(.76, 0, .24, 1);
+}
+
+/* ── Letter resting offsets ── */
+.letter.c { transform: translateY(-80px); }
+.letter.h { transform: translateY(80px); }
+.letter.a { transform: translateY(-80px); }
+.letter.n { transform: translateY(80px); }
+
+/* ── Active state ── */
+.letter.letter-active {
+  transform: translateY(0) !important;
+}
+
+/* ── Letter h1 ── */
 .letter h1 {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
@@ -41,24 +56,10 @@
   letter-spacing: 0.01em;
   margin: 0;
   display: block;
-}
-
-.letter p {
-  font-size: clamp(0.9rem, 1.2vw, 1.4rem);
-  font-weight: 700;
-  margin-top: 8px;
-  text-align: center;
-}
-
-.letter {
   pointer-events: none;
 }
 
-.letter h1 {
-  pointer-events: none;
-  line-height: 0.85;
-}
-
+/* ── Glyph span — tight hit target ── */
 .letter-glyph {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
@@ -66,59 +67,19 @@
   pointer-events: auto;
   cursor: pointer;
   line-height: 1;
-}
-
-.letter p {
-  pointer-events: auto;
-}
-
-.c {
-  transform: translateY(-80px);
-}
-
-.h {
-  transform: translateY(80px);
-}
-
-.a {
-  transform: translateY(-80px);
-}
-
-.n {
-  transform: translateY(80px);
-}
-
-/* .hero:has(.letter:hover) .letter {
-  transform: translateY(0);
-}
-
-.letter:hover {
-  transform: translateY(0);
-} */
-
-.letter-glyph {
-  display: inline-block;
-  pointer-events: auto;
-  cursor: pointer;
-  line-height: 1;
   width: fit-content;
 }
 
-.letter.letter-active {
-  transform: translateY(0) !important;
+/* ── Letter subtitle ── */
+.letter p {
+  font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+  font-weight: 700;
+  margin-top: 8px;
+  text-align: center;
+  pointer-events: auto;
 }
 
-.letter.letter-inactive {}
-
-.letter.c { transform: translateY(-80px); }
-.letter.h { transform: translateY(80px); }
-.letter.a { transform: translateY(-80px); }
-.letter.n { transform: translateY(80px); }
-
-.letter.letter-active {
-  transform: translateY(0) !important;
-}
-
+/* ── Mobile ── */
 @media (max-width: 768px) {
   .hero {
     flex-direction: row;
@@ -128,17 +89,11 @@
     align-items: center;
     justify-content: space-between;
   }
-
-  .letter h1 {
-    font-size: clamp(2.5rem, 12vw, 5rem);
-  }
-
-  .letter p {
-    font-size: 0.65rem;
-    margin-top: 4px;
-  }
+  .letter h1 { font-size: clamp(2.5rem, 12vw, 5rem); }
+  .letter p  { font-size: 0.65rem; margin-top: 4px; }
 }
 
+/* ── Background reveal overlay ── */
 .bg-reveal {
   position: fixed;
   inset: 0;
@@ -147,13 +102,9 @@
   opacity: 1;
   transition: opacity 1.5s ease;
 }
+body.video-unlocked .bg-reveal { opacity: 0; }
 
-/* Fade away the white layer */
-body.video-unlocked .bg-reveal {
-  opacity: 0;
-}
-
-/* Fixed background image (covers viewport even when scrolling) */
+/* ── Background video ── */
 .fixed-bg {
   position: fixed;
   inset: 0;
@@ -161,48 +112,62 @@ body.video-unlocked .bg-reveal {
   height: 100%;
   object-fit: cover;
   z-index: -1;
-  filter: blur(8px);
   opacity: 0;
   visibility: hidden;
   transform: scale(1.08);
-
-  transition:
-    opacity 1.2s ease,
-    transform 1.6s ease,
-    visibility 0s linear 1.2s;
-  background: white;
+  transition: opacity 1.2s ease, transform 1.6s ease, visibility 0s linear 1.2s;
 }
-
 body.video-unlocked .fixed-bg {
   opacity: 0.35;
   visibility: visible;
   transform: scale(1);
-  filter: blur(0);
-  transition:
-    opacity 1.2s ease,
-    transform 1.6s ease;
+  transition: opacity 1.2s ease, transform 1.6s ease;
 }
+.fixed-bg.visible { opacity: 0.35; }
 
-.fixed-bg.visible {
-  opacity: 0.35;
-}
+/* ── Page scroll lock ── */
+html, body { height: 100%; }
 
-/* Ensure pages can scroll normally. Keep `.scrollable` as a scroll container. */
-html,
 body {
-  height: 100%;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,.35) rgba(0,0,0,.06);
+}
+body.scroll-enabled { overflow: auto; }
+.page-loading { touch-action: none; }
+
+/* ── Scrollbar (WebKit) ── */
+body::-webkit-scrollbar { width: 12px; height: 12px; }
+body::-webkit-scrollbar-track { background: rgba(0,0,0,.04); }
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,.35);
+  border-radius: 10px;
+  border: 3px solid rgba(0,0,0,.06);
 }
 
+/* ── Scrollable container ── */
 .scrollable {
   min-height: 100vh;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-/* ABOUT ME improvements */
+/* ── Work section ── */
+#work-section {
+  padding-top: 3.5% !important;
+  padding-bottom: 8% !important;
+}
+
+/* ── About section ── */
+#about-section {
+  position: relative;
+  padding-top: 2.5% !important;
+  padding-bottom: 3% !important;
+}
+
 .about-text {
   max-width: 44ch;
-  /* text-align: justify; */
   text-justify: inter-word;
   -webkit-hyphens: none;
   -ms-hyphens: none;
@@ -213,71 +178,22 @@ body {
   line-height: 1.6;
 }
 
-/* Reduce large vertical spacing in work and about sections */
-#work-section {
-  padding-top: 3.5% !important;
-  padding-bottom: 8% !important;
-}
-
-#about-section {
-  padding-top: 2.5% !important;
-  padding-bottom: 3% !important;
-}
-
-/* Tighten title margins to remove extra whitespace */
-.event-title,
-.section-title {
+/* ── Section titles ── */
+.event-title, .section-title {
   margin-bottom: clamp(8px, 1.8vw, 20px) !important;
+  font-size: clamp(20px, 3vw, 32px) !important;
 }
 
-/* Slightly reduce divider spacing */
-.divider {
-  margin: 8px 0 !important;
-  height: 1px;
-}
-
-/* Scrollbar styling: ensure vertical scrollbar is visible and usable */
-html,
-body {
-  height: 100%;
-}
-
-body {
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  /* Firefox */
-  scrollbar-color: rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.06);
-}
-
-/* WebKit browsers */
-body::-webkit-scrollbar {
-  width: 12px;
-}
-
-body::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.04);
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.35);
-  border-radius: 10px;
-  border: 3px solid rgba(0, 0, 0, 0.06);
-}
-
-/* Position the contact + social links at the bottom-right of the ABOUT section (right column) */
-/* ABOUT section layout: left content and right links column */
-#about-section {
-  position: relative;
+/* ── Right column links ── */
+.right-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
 }
 
 @media (min-width: 768px) {
-
-  /* Anchor .right-links to bottom-right inside the explicit right-column wrapper */
-  #about-section .right-column {
-    position: relative;
-  }
-
+  #about-section .right-column { position: relative; }
   #about-section .right-column .right-links {
     position: absolute;
     right: 1rem;
@@ -287,26 +203,21 @@ body::-webkit-scrollbar-thumb {
     align-items: flex-end;
     gap: 0.35rem;
   }
-
   #about-section .right-links .social-row {
     display: flex;
     gap: 0.35rem;
     align-items: center;
   }
-
-  /* Increase link size and clickable area */
   #about-section .right-links .side-link {
     white-space: nowrap;
     font-size: clamp(16px, 1.8vw, 22px);
     padding: 6px 10px;
   }
-
-  #about-section .right-links>a:first-child {
+  #about-section .right-links > a:first-child {
     font-size: clamp(16px, 2vw, 24px);
   }
 }
 
-/* Small screens: keep links in-flow below content */
 @media (max-width: 767px) {
   #about-section .right-links {
     position: static;
@@ -315,110 +226,12 @@ body::-webkit-scrollbar-thumb {
     gap: 0.1rem;
     align-items: center;
   }
-
   #about-section .right-links .side-link {
     font-size: clamp(13px, 2.2vw, 15px);
   }
 }
 
-/* Page layout and scroll behavior */
-html,
-body {
-  height: 100%;
-}
-
-/* Allow scrolling only when enabled. JS toggles scroll-enabled. */
-body {
-  overflow: hidden;
-}
-
-body.scroll-enabled {
-  overflow: auto;
-}
-
-/* Ensure native scrollbars are visible across browsers */
-body::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
-
-body:hover::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
-
-/* Keep page-loading marker for media gating (no forced position) */
-.page-loading {
-  touch-action: none;
-}
-
-.page-loading .letter {
-  transition: none !important;
-}
-
-/* Slide-in-from-left animation for slide-in sections (slower) */
-.slide-in-left {
-  transform: translateX(-120px);
-  opacity: 0;
-  transition: transform 1s cubic-bezier(.2, .9, .2, 1), opacity .6s ease;
-  will-change: transform, opacity;
-}
-
-.slide-in-left.in-view {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-/* Stagger child content for nicer entrance */
-.slide-in-left .about-text {
-  transform: translateX(-20px);
-  opacity: 0;
-  transition: transform 1s cubic-bezier(.2, .9, .2, 1) .12s, opacity .6s ease .12s;
-}
-
-.slide-in-left.in-view .about-text {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-/* Event description paragraph justified */
-.event-description {
-  /* text-align: justify; */
-  text-justify: inter-word;
-}
-
-.event-description::after {
-  content: '';
-  display: inline-block;
-  width: 100%;
-}
-
-/* Allow opting out of justification for specific paragraphs */
-.event-description.no-justify {
-  text-align: left;
-  text-justify: auto;
-}
-
-/* About paragraph: justified for better reading */
-.about-text {
-  /* text-align: justify; */
-  text-justify: inter-word;
-}
-
-/* Section title sizing overrides (increase titles) */
-.event-title,
-.section-title {
-  font-size: clamp(20px, 3vw, 32px) !important;
-}
-
-/* Right-column link styling (small, right-aligned with arrow) */
-.right-links {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.75rem;
-}
-
+/* ── Side links ── */
 .side-link {
   font-weight: 700;
   font-size: clamp(12px, 1.2vw, 14px);
@@ -429,19 +242,7 @@ body:hover::-webkit-scrollbar {
   position: relative;
 }
 
-.side-link::after {
-  content: '→';
-  display: inline-block;
-  margin-left: var(--arrow-gap);
-  font-size: var(--arrow-size);
-  font-weight: 900;
-  transform-origin: center;
-  transform: rotate(-45deg);
-  transition: transform .18s ease, opacity .12s ease;
-  pointer-events: none;
-}
-
-/* Arrow link styling for other links (e.g., READ CASE STUDY) */
+.side-link::after,
 .arrow-link::after {
   content: '→';
   display: inline-block;
@@ -459,11 +260,7 @@ body:hover::-webkit-scrollbar {
   display: inline-block;
 }
 
-/* Hover: underline only the link text and change arrow to point right and nudge it */
-.side-link:focus,
-.arrow-link:focus {
-  outline: none;
-}
+.side-link:focus, .arrow-link:focus { outline: none; }
 
 .side-link:hover .link-text,
 .arrow-link:hover .link-text,
@@ -479,7 +276,30 @@ body:hover::-webkit-scrollbar {
   transform: rotate(0deg) translateX(6px);
 }
 
-/* Protect images from dragging/right-click (client-side deterrent) */
+/* ── Event description ── */
+.event-description { text-justify: inter-word; }
+.event-description::after { content: ''; display: inline-block; width: 100%; }
+.event-description.no-justify { text-align: left; text-justify: auto; }
+
+/* ── Slide-in sections ── */
+.slide-in-left {
+  transform: translateX(-120px);
+  opacity: 0;
+  transition: transform 1s cubic-bezier(.2, .9, .2, 1), opacity .6s ease;
+  will-change: transform, opacity;
+}
+.slide-in-left.in-view { transform: translateX(0); opacity: 1; }
+.slide-in-left .about-text {
+  transform: translateX(-20px);
+  opacity: 0;
+  transition: transform 1s cubic-bezier(.2, .9, .2, 1) .12s, opacity .6s ease .12s;
+}
+.slide-in-left.in-view .about-text { transform: translateX(0); opacity: 1; }
+
+/* ── Divider ── */
+.divider { margin: 8px 0 !important; height: 1px; }
+
+/* ── Image protection ── */
 .protect-img {
   -webkit-user-drag: none;
   user-select: none;

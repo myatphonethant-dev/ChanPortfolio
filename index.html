@@ -13,11 +13,10 @@
 </head>
 
 <body class="bg-white page-loading">
-  </div>
   <main class="scrollable min-h-screen">
+
     <!-- ── HERO ── -->
     <section class="hero">
-      <!-- Background network image (fixed) -->
       <div class="bg-reveal"></div>
       <video id="hero-bg-video" src="assets/videos/background.m4v" autoplay muted loop playsinline preload="auto"
         class="fixed-bg"></video>
@@ -26,17 +25,14 @@
         <h1><span class="letter-glyph">C</span></h1>
         <p>UX/UI DESIGN</p>
       </div>
-
       <div class="letter h">
         <h1><span class="letter-glyph">H</span></h1>
         <p>BACK-END DEVELOPER</p>
       </div>
-
       <div class="letter a">
         <h1><span class="letter-glyph">A</span></h1>
         <p>BASED IN BANGKOK</p>
       </div>
-
       <div class="letter n">
         <h1><span class="letter-glyph">N</span></h1>
         <p>FROM MYANMAR</p>
@@ -44,21 +40,21 @@
     </section>
 
     <!-- ── WORK SECTION ── -->
-    <section id="work-section" class="px-[5%] pt-[7.8%] pb-[20%] ">
+    <section id="work-section" class="px-[5%] pt-[7.8%] pb-[20%]">
       <div class="md:flex md:items-stretch md:gap-8">
         <div class="md:flex-1">
-          <p
-            class="event-title font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] mb-[clamp(16px,3.8vw,46px)]">
-            EVENT TICKET SYSTEM</p>
+          <p class="event-title font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] mb-[clamp(16px,3.8vw,46px)]">
+            EVENT TICKET SYSTEM
+          </p>
           <p class="text-black font-normal leading-[150%] text-[clamp(18px,2.2vw,28px)] about-text event-description">
             A seamless event booking platform with email OTP authentication, digital ticket generation, and QR code
             validation for secure, hassle-free event access.
           </p>
           <a href="case-study.html"
-            class="mt-4 inline-block font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] arrow-link"><span
-              class="link-text">READ CASE STUDY</span></a>
+            class="mt-4 inline-block font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] arrow-link">
+            <span class="link-text">READ CASE STUDY</span>
+          </a>
         </div>
-
         <aside class="md:w-1/3 flex-shrink-0 hidden md:flex items-start justify-center">
           <img src="assets/images/ets-image.png" alt="Event Ticket System screenshot"
             class="protect-img max-w-full h-auto rounded shadow-md">
@@ -68,10 +64,9 @@
 
     <!-- ── ABOUT + LINKS ── -->
     <section id="about-section"
-      class="px-[5%] py-[5%] flex flex-col md:flex-row md:justify-between md:items-stretch gap-10 ">
+      class="px-[5%] py-[5%] flex flex-col md:flex-row md:justify-between md:items-stretch gap-10">
       <div class="md:w-2/3">
-        <p
-          class="section-title font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] mb-[clamp(16px,3.8vw,46px)]">
+        <p class="section-title font-black text-black text-[clamp(14px,1.67vw,20px)] uppercase leading-[1.3] mb-[clamp(16px,3.8vw,46px)]">
           ABOUT ME
         </p>
         <p class="text-black font-normal leading-[150%] text-[clamp(18px,2.2vw,28px)] about-text">
@@ -80,7 +75,6 @@
           matter.
         </p>
       </div>
-
       <div class="md:w-1/3 right-column">
         <div class="right-links">
           <div class="social-row">
@@ -101,11 +95,13 @@
         Copyright © 2026 Design with Chan
       </p>
     </footer>
+
   </main>
+
+  <!-- ── SCRIPT 1: Scroll reveal ── -->
   <script>
-    // Reveal all  sections when they scroll into view (IntersectionObserver)
     (function () {
-      var sections = Array.prototype.slice.call(document.querySelectorAll('.'));
+      var sections = Array.prototype.slice.call(document.querySelectorAll('.slide-in-left'));
       if (!sections.length) return;
       if ('IntersectionObserver' in window) {
         var obs = new IntersectionObserver(function (entries, observer) {
@@ -122,66 +118,15 @@
       }
     })();
   </script>
+
+  <!-- ── SCRIPT 2: Protect images ── -->
   <script>
-
-    (function () {
-      var body = document.body;
-      var letters = document.querySelectorAll('.letter');
-
-      function unlockVideo() {
-        body.classList.add('video-unlocked');
-      }
-
-      letters.forEach(function (el) {
-        el.addEventListener('mouseenter', unlockVideo, { once: true });
-        el.addEventListener('touchstart', unlockVideo, { once: true });
-      });
-    })();
-    // Lock scrolling until the user hovers over the words "CHAN"
-    (function () {
-      // Force scroll to top on refresh/load
-      if (history.scrollRestoration) {
-        history.scrollRestoration = 'manual';
-      }
-      window.scrollTo(0, 0);
-
-      var body = document.body;
-      var permanentEnabled = false;
-
-      function preventTouch(e) { e.preventDefault(); }
-
-      function enablePage() {
-        if (permanentEnabled || !body) return;
-        body.classList.remove('page-loading');
-        body.classList.add('scroll-enabled');
-        permanentEnabled = true;
-        document.removeEventListener('touchmove', preventTouch, { passive: false });
-
-        var video = document.getElementById('hero-bg-video');
-        if (video) {
-          video.classList.add('visible');
-        }
-      }
-
-      // Unlock scroll permanently once hovered or focused on a letter or the hero
-      var hoverTargets = Array.prototype.slice.call(document.querySelectorAll('.letter, .hero'));
-      hoverTargets.forEach(function (t) {
-        t.addEventListener('mouseenter', enablePage);
-        t.addEventListener('focus', enablePage);
-      });
-
-      // Prevent touch scroll initially on mobile
-      document.addEventListener('touchmove', preventTouch, { passive: false });
-    })();
-  </script>
-  <script>
-    // Disable right-click and dragging on images with the `protect-img` class
     (function () {
       function protectImages() {
         var imgs = Array.prototype.slice.call(document.querySelectorAll('.protect-img'));
         if (!imgs.length) return;
         imgs.forEach(function (img) {
-          try { img.setAttribute('draggable', 'false'); } catch (e) { }
+          try { img.setAttribute('draggable', 'false'); } catch (e) {}
           img.addEventListener('dragstart', function (e) { e.preventDefault(); });
         });
         document.addEventListener('contextmenu', function (e) {
@@ -192,34 +137,42 @@
       else protectImages();
     })();
   </script>
-  <script>
-    // ── Scroll + video unlock (ink-detection driven, not bounding-box) ──
-    (function () {
-      if (history.scrollRestoration) history.scrollRestoration = 'manual';
-      window.scrollTo(0, 0);
-      var body = document.body;
-      var permanentEnabled = false;
-      function preventTouch(e) { e.preventDefault(); }
-      document.addEventListener('touchmove', preventTouch, { passive: false });
 
-      window.__enablePage = function () {
-        if (permanentEnabled) return;
-        body.classList.remove('page-loading');
-        body.classList.add('scroll-enabled', 'video-unlocked');
-        permanentEnabled = true;
-        document.removeEventListener('touchmove', preventTouch, { passive: false });
-        var video = document.getElementById('hero-bg-video');
-        if (video) video.classList.add('visible');
-      };
-    })();
-  </script>
-
+  <!-- ── SCRIPT 3: All interaction logic ── -->
   <script>
+    // Prevent scroll until ink is hovered
+    if (history.scrollRestoration) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
+    var _pageUnlocked = false;
+    var _touchBlocked = true;
+
+    function _preventTouch(e) { e.preventDefault(); }
+    document.addEventListener('touchmove', _preventTouch, { passive: false });
+
+    function enablePage() {
+      if (_pageUnlocked) return;
+      _pageUnlocked = true;
+      document.body.classList.remove('page-loading');
+      document.body.classList.add('scroll-enabled', 'video-unlocked');
+      document.removeEventListener('touchmove', _preventTouch, { passive: false });
+      var video = document.getElementById('hero-bg-video');
+      if (video) video.classList.add('visible');
+    }
+
+    // Ink-pixel detection + animation
     document.fonts.ready.then(function () {
       var hero = document.querySelector('.hero');
       var letters = Array.prototype.slice.call(document.querySelectorAll('.letter'));
       var glyphCanvases = new Map();
-      var lastInkLetter = null;
+      var isActive = false;
+
+      // Enable transitions after first paint so letters don't animate on load
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          document.body.classList.add('transitions-ready');
+        });
+      });
 
       function buildCanvas(span) {
         var rect = span.getBoundingClientRect();
@@ -246,50 +199,43 @@
 
       function isOverInk(e) {
         var el = document.elementFromPoint(e.clientX, e.clientY);
-        if (!el || !el.classList.contains('letter-glyph')) return null;
-        var span = el;
-        var rect = span.getBoundingClientRect();
-        var data = getCanvas(span);
+        if (!el || !el.classList.contains('letter-glyph')) return false;
+        var rect = el.getBoundingClientRect();
+        var data = getCanvas(el);
         var x = Math.max(0, Math.min(Math.round(e.clientX - rect.left), data.canvas.width - 1));
         var y = Math.max(0, Math.min(Math.round(e.clientY - rect.top), data.canvas.height - 1));
-        var alpha = data.ctx.getImageData(x, y, 1, 1).data[3];
-        return alpha > 30 ? span.closest('.letter') : null;
+        return data.ctx.getImageData(x, y, 1, 1).data[3] > 30;
       }
 
-      function applyLetterStates(activeLetter) {
-        var anyActive = activeLetter !== null;
+      function activate() {
+        if (isActive) return;
+        isActive = true;
         letters.forEach(function (l) {
-          if (anyActive) {
-            if (!l.classList.contains('letter-active')) {
-              l.classList.remove('letter-inactive');
-              void l.offsetWidth;
-              l.classList.add('letter-active');
-            }
-          } else {
-            if (l.classList.contains('letter-active')) {
-              l.classList.remove('letter-active');
-              void l.offsetWidth;
-              l.classList.add('letter-inactive');
-            }
-          }
+          l.classList.remove('letter-active');
+          void l.offsetWidth; // force reflow so transform resets to offset
+          l.classList.add('letter-active');
+        });
+        enablePage();
+      }
+
+      function deactivate() {
+        if (!isActive) return;
+        isActive = false;
+        letters.forEach(function (l) {
+          l.classList.remove('letter-active');
         });
       }
 
       hero.addEventListener('mousemove', function (e) {
-        var inkLetter = isOverInk(e);
-
-        if (inkLetter !== lastInkLetter) {
-          lastInkLetter = inkLetter;
-          applyLetterStates(inkLetter);
-          if (inkLetter) window.__enablePage();
+        if (isOverInk(e)) {
+          activate();
+        } else {
+          deactivate();
         }
       });
 
       hero.addEventListener('mouseleave', function () {
-        if (lastInkLetter !== null) {
-          lastInkLetter = null;
-          applyLetterStates(null);
-        }
+        deactivate();
       });
 
       window.addEventListener('resize', function () {
@@ -297,6 +243,6 @@
       });
     });
   </script>
-</body>
 
+</body>
 </html>
